@@ -105,5 +105,4 @@ wro_addons.xml
 velocity.log
 .classpath.bak
 **/spartacussampledata/**
-**/dkpromotionengine/**
 **/restintegrationutil/**
