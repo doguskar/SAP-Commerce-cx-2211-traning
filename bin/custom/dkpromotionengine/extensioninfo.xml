@@ -2,6 +2,9 @@
 <extensioninfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="extensioninfo.xsd">
     <extension abstractclassprefix="Generated" classprefix="DkPromotionEngine" jaloLogicFree="true" managername="DkpromotionengineManager" managersuperclass="de.hybris.platform.jalo.extension.Extension" name="dkpromotionengine" usemaven="false">
 
+        <requires-extension name="commerceservices" />
+        <requires-extension name="promotionengineservices" />
+        <requires-extension name="droolsruleengineservices" />
 
         <coremodule generated="true" manager="org.dk.promotion.engine.jalo.DkpromotionengineManager" packageroot="org.dk.promotion.engine"/>
 

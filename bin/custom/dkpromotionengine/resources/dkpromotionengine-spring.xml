@@ -10,7 +10,35 @@
            http://www.springframework.org/schema/aop
            http://www.springframework.org/schema/aop/spring-aop.xsd">
 	
-    <!--<bean id="dkpromotionengineSystemSetup" class="org.dk.promotion.engine.setup.DkpromotionengineSystemSetup"/>-->
+    <bean id="dkpromotionengineSystemSetup" class="org.dk.promotion.engine.setup.DkpromotionengineSystemSetup" parent="abstractCoreSystemSetup"/>
 
+	<bean depends-on="promotionActionStrategiesMapping" parent="mapMergeDirective">
+		<property name="sourceMap">
+			<map>
+				<entry key="defaultRuleCalculateTotalOfQualifiedProductsRAOAction" value-ref="ruleExecutedActionStrategy" />
+			</map>
+		</property>
+	</bean>
+
+	<alias alias="ruleCalculateTotalOfQualifiedProductsRAOAction" name="defaultRuleCalculateTotalOfQualifiedProductsRAOAction" />
+	<bean id="defaultRuleCalculateTotalOfQualifiedProductsRAOAction"  parent="abstractRuleExecutableSupport"
+		  class="org.dk.promotion.engine.action.RuleCalculateTotalOfQualifiedProductsRAOAction"/>
+
+	<alias alias="ruleCalculateTotalOfQualifiedProductsAction" name="defaultRuleCalculateTotalOfQualifiedProductsAction" />
+	<bean id="defaultRuleCalculateTotalOfQualifiedProductsAction" class="de.hybris.platform.ruledefinitions.actions.DefaultRuleExecutableAction">
+		<property name="raoAction" ref="ruleCalculateTotalOfQualifiedProductsRAOAction"/>
+	</bean>
+
+	<alias alias="ruleTotalOfQualifiedProductsConditionTranslator" name="defaultRuleTotalOfQualifiedProductsConditionTranslator" />
+	<bean id="defaultRuleTotalOfQualifiedProductsConditionTranslator" parent="ruleCartTotalConditionTranslator"
+		  class="org.dk.promotion.engine.condition.RuleTotalOfQualifiedProductsConditionTranslator" >
+		<property name="cartThresholdConditionAttribute" value="totalOfQualifiedProducts"/>
+	</bean>
+
+	<alias name="defaultRuleExecutedActionStrategy" alias="ruleExecutedActionStrategy"/>
+	<bean id="defaultRuleExecutedActionStrategy" parent="abstractRuleActionStrategy"
+		  class="org.dk.promotion.engine.strategy.DefaultRuleExecutedActionStrategy" >
+		<property name="promotionAction" value="org.dk.promotion.engine.model.RuleBasedRuleExecutedActionModel"/>
+	</bean>
 			
 </beans>

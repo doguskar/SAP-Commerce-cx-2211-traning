@@ -1,0 +1,20 @@
+# Action
+INSERT_UPDATE RuleActionDefinition; id[unique = true]; priority; translatorId; translatorParameters; categories(id)
+; calculate_total_of_qualified_products ; 100 ; ruleExecutableActionTranslator ; actionId->defaultRuleCalculateTotalOfQualifiedProductsAction ; general
+
+INSERT_UPDATE RuleActionDefinitionRuleTypeMapping;definition(id)[unique=true];ruleType(code)[default=PromotionSourceRule][unique=true]
+; calculate_total_of_qualified_products ;
+
+
+# Condition
+INSERT_UPDATE RuleConditionDefinition; id[unique = true]; priority; allowsChildren; translatorId; translatorParameters; categories(id)
+; total_of_qualified_products ; 1199 ; false ; ruleTotalOfQualifiedProductsConditionTranslator ; ; cart
+
+INSERT_UPDATE RuleConditionDefinitionRuleTypeMapping; definition(id)[unique = true]; ruleType(code)[default = AbstractRule][unique = true]
+; total_of_qualified_products ; AbstractRule
+; total_of_qualified_products ; SourceRule
+
+INSERT_UPDATE RuleConditionDefinitionParameter;definition(id)[unique=true];id[unique=true];priority;type;value;required[default=true];validators
+; total_of_qualified_products ; operator ; 1100 ; Enum(de.hybris.platform.ruledefinitions.AmountOperator) ; """GREATER_THAN_OR_EQUAL""" ; ;
+; total_of_qualified_products ; value    ; 1000 ; Map(ItemType(Currency),java.math.BigDecimal)            ;                             ; ; rulePositiveNumberParameterValidator
+

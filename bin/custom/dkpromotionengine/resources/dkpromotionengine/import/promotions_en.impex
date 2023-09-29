@@ -1,0 +1,12 @@
+$lang=en
+
+INSERT_UPDATE RuleActionDefinition; id[unique = true]; name[lang = $lang]; breadcrumb[lang = $lang];
+; calculate_total_of_qualified_products ; Calculate total of qualified products ; Calculate total of qualified products
+
+INSERT_UPDATE RuleConditionDefinition; id[unique = true]; name[lang = $lang]; breadcrumb[lang = $lang]
+; total_of_qualified_products ; Total Of Qualified Products ; Total of qualified products {operator} {value}
+
+INSERT_UPDATE RuleConditionDefinitionParameter; definition(id)[unique = true]; id[unique = true]; name[lang = $lang]; description[lang = $lang]
+; total_of_qualified_products ; operator ; Operator                       ; Operator to compare the cart total value
+; total_of_qualified_products ; value    ; Qualified products total value ; Map of currency and value of the cart total to be used
+
