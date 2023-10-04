@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<config xmlns="http://www.hybris.com/cockpit/config"
+        xmlns:na="http://www.hybris.com/cockpitng/config/notifications"
+        xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea"
+        xmlns:list-view="http://www.hybris.com/cockpitng/component/listView"
+        xmlns:y="http://www.hybris.com/cockpit/config/hybris"
+        xmlns:as="http://www.hybris.com/cockpitng/config/advancedsearch"
+        xmlns:yss="http://www.hybris.com/cockpitng/config/simplesearch"
+        xmlns:n="http://www.hybris.com/cockpitng/config/explorertree"
+        xmlns:list="http://www.hybris.com/cockpitng/component/listView"
+        xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch"
+        xmlns:p="http://www.hybris.com/cockpitng/config/perspectiveChooser"
+        xmlns:wz="http://www.hybris.com/cockpitng/config/wizard-config">
+    <context merge-by="type" type="CAFullStockUpdateJob" parent="CronJob" component="editor-area">
+
+    <context merge-by="type" parent="GenericItem" type="RequestLog" component="base">
+        <y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+            <y:labels>
+                <y:label>method + ' ' + uri</y:label>
+            </y:labels>
+        </y:base>
+    </context>
+    <context merge-by="type" type="RequestLog" parent="GenericItem" component="editor-area">
+        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+            <editorArea:tab name="ltb.tab">
+                <editorArea:section name="hmc.sec.basic" position="0">
+                    <editorArea:attribute qualifier="method"/>
+                    <editorArea:attribute qualifier="uri"/>
+                    <editorArea:attribute qualifier="requestBody"/>
+                    <editorArea:attribute qualifier="responseBody"/>
+                    <editorArea:attribute qualifier="statusCode"/>
+                    <editorArea:attribute qualifier="isSuccess"/>
+                    <editorArea:attribute qualifier="errorStackTrace"/>
+                    <editorArea:attribute qualifier="code"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+    <context type="RequestLog" component="advanced-search" merge-by="type">
+        <as:advanced-search xmlns:as="http://www.hybris.com/cockpitng/config/advancedsearch">
+            <as:field-list>
+                <as:field name="method" selected="true"/>
+                <as:field name="uri" selected="true"/>
+                <as:field name="statusCode" selected="true"/>
+                <as:field name="isSuccess" selected="true"/>
+                <as:field name="code" selected="true"/>
+            </as:field-list>
+        </as:advanced-search>
+    </context>
+
+    <context type="RequestLog" component="simple-search" merge-by="type">
+        <yss:simple-search>
+            <yss:field name="uri"/>
+            <yss:field name="code"/>
+        </yss:simple-search>
+    </context>
+
+</config>
+
+

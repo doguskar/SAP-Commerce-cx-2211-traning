@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<items 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="items.xsd">
+
+	<collectiontypes>
+		<collectiontype code="RequestLogList" elementtype="RequestLog" type="list"/>
+	</collectiontypes>
+
+	<itemtypes>
+		<itemtype code="RequestLog" extends="GenericItem">
+			<deployment table="requestLogs" typecode="20000"/>
+			<attributes>
+				<attribute qualifier="code" type="java.lang.String">
+					<persistence type="property"/>
+					<modifiers unique="true" optional="false" initial="true"/>
+				</attribute>
+				<attribute qualifier="method" type="java.lang.String">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="uri" type="java.lang.String">
+					<persistence type="property">
+						<columntype>
+							<value>HYBRIS.LONG_STRING</value>
+						</columntype>
+					</persistence>
+				</attribute>
+				<attribute qualifier="requestBody" type="java.lang.String">
+					<persistence type="property">
+						<columntype>
+							<value>HYBRIS.LONG_STRING</value>
+						</columntype>
+					</persistence>
+				</attribute>
+				<attribute qualifier="responseBody" type="java.lang.String">
+					<persistence type="property">
+						<columntype>
+							<value>HYBRIS.LONG_STRING</value>
+						</columntype>
+					</persistence>
+				</attribute>
+				<attribute qualifier="statusCode" type="java.lang.Integer">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="isSuccess" type="java.lang.Boolean">
+					<persistence type="property"/>
+					<defaultvalue>Boolean.FALSE</defaultvalue>
+					<model>
+						<getter name="isSuccess" default="true">
+							<nullDecorator>Boolean.FALSE</nullDecorator>
+						</getter>
+					</model>
+				</attribute>
+				<attribute qualifier="errorStackTrace" type="java.lang.String">
+					<persistence type="property">
+						<columntype>
+							<value>HYBRIS.LONG_STRING</value>
+						</columntype>
+					</persistence>
+				</attribute>
+			</attributes>
+		</itemtype>
+	</itemtypes>
+</items>
