@@ -34,4 +34,5 @@
 		<property name="add" ref="getCheckboxconfiguratortemplateaddonBeforeViewHandler"/>
 	</bean>
 
+	<context:component-scan base-package="de.hybris.platform.checkboxconfiguratortemplateaddon.controllers"/>
 </beans>

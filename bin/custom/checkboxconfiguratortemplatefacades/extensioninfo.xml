@@ -16,8 +16,9 @@
                          
       
         
-        <!-- <requires-extension name="cms"/> -->
-                         
+         <requires-extension name="commercefacades"/>
+         <requires-extension name="checkboxconfiguratortemplateservices"/>
+
       
 
       

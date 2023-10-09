@@ -12,7 +12,9 @@
 		
         
         <requires-extension name="addonsupport"/>
-                		
+        <requires-extension name="acceleratorstorefrontcommons"/>
+        <requires-extension name="checkboxconfiguratortemplatefacades"/>
+
         
         <coremodule generated="true" manager="de.hybris.platform.checkboxconfiguratortemplateaddon.jalo.CheckboxconfiguratortemplateaddonManager" packageroot="de.hybris.platform.checkboxconfiguratortemplateaddon"/>
                 		
