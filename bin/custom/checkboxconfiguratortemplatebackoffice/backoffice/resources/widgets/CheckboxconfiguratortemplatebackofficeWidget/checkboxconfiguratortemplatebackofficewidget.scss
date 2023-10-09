@@ -1,0 +1,13 @@
+@charset "utf-8";
+@import "./support/checkboxconfiguratortemplatebackofficewidget-variables.scss";
+
+.yw-labelstyle
+{
+	color: $checkboxconfiguratortemplatebackoffice-label-text-color;
+}
+
+.checkboxconfiguratortemplatebackoffice-container {
+	background: $checkboxconfiguratortemplatebackoffice-container-background;
+	font-family: $checkboxconfiguratortemplatebackoffice-container-font-family;
+	font-size: $checkboxconfiguratortemplatebackoffice-container-font-size;
+}
