@@ -1,6 +1,6 @@
 package com.rest.integration.util.command.rest.response;
 
-public class MockGetCustomerResponse extends AbstractResponse {
+public class MockGetCustomerResponse {
     private Integer id;
     private String username;
     private Boolean isActive;

@@ -11,7 +11,6 @@
         xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch"
         xmlns:p="http://www.hybris.com/cockpitng/config/perspectiveChooser"
         xmlns:wz="http://www.hybris.com/cockpitng/config/wizard-config">
-    <context merge-by="type" type="CAFullStockUpdateJob" parent="CronJob" component="editor-area">
 
     <context merge-by="type" parent="GenericItem" type="RequestLog" component="base">
         <y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
@@ -22,8 +21,8 @@
     </context>
     <context merge-by="type" type="RequestLog" parent="GenericItem" component="editor-area">
         <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
-            <editorArea:tab name="ltb.tab">
-                <editorArea:section name="hmc.sec.basic" position="0">
+            <editorArea:tab name="hmc.tab.basic">
+                <editorArea:section name="hmc.section.basic" position="0">
                     <editorArea:attribute qualifier="method"/>
                     <editorArea:attribute qualifier="uri"/>
                     <editorArea:attribute qualifier="requestBody"/>
@@ -44,7 +43,7 @@
                 <as:field name="uri" selected="true"/>
                 <as:field name="statusCode" selected="true"/>
                 <as:field name="isSuccess" selected="true"/>
-                <as:field name="code" selected="true"/>
+                <as:field name="code"/>
             </as:field-list>
         </as:advanced-search>
     </context>
@@ -54,6 +53,22 @@
             <yss:field name="uri"/>
             <yss:field name="code"/>
         </yss:simple-search>
+    </context>
+
+    <context component="listview" type="RequestLog" merge-by="type">
+        <list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView"
+                             refresh-after-object-creation="true">
+            <list-view:column qualifier="isSuccess" />
+            <list-view:column qualifier="method" />
+            <list-view:column qualifier="uri" />
+            <list-view:column qualifier="creationtime" />
+        </list-view:list-view>
+    </context>
+
+    <context merge-by="module" parent="auto" component="explorer-tree">
+        <explorer-tree:explorer-tree xmlns:explorer-tree="http://www.hybris.com/cockpitng/config/explorertree">
+            <explorer-tree:type-node code="RequestLog" id="hmc_type_tree_requestlog"/>
+        </explorer-tree:explorer-tree>
     </context>
 
 </config>

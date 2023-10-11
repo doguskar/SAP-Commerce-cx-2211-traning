@@ -1,37 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-           http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <util:map id="restCommandMap"></util:map>
 
     <bean name="restCommandFactory" class="com.rest.integration.util.factory.impl.DefaultIFactory">
         <property name="key" value="restCommandFactory"/>
-        <property name="map">
-            <map>
-                <entry>
-                    <key><value type="java.lang.Class">com.rest.integration.util.command.rest.MockGetCustomerCommand</value></key>
-                    <bean class="com.rest.integration.util.command.rest.impl.DefaultMockGetCustomerCommand" parent="abstractRestCommand"></bean>
-                </entry>
-            </map>
-        </property>
+        <property name="map" ref="restCommandMap"/>
     </bean>
 
     <bean id="abstractRestCommand" abstract="true" class="com.rest.integration.util.command.rest.impl.AbstractRestCommand"/>
 
     <!-- RequestLog Commands -->
+    <util:map id="saveRequestLogCommandMap"></util:map>
+
     <bean name="saveRequestLogCommandFactory" class="com.rest.integration.util.factory.impl.DefaultIFactory">
         <property name="key" value="saveRequestLogCommandFactory"/>
-        <property name="map">
-            <map>
-                <entry>
-                    <key><value type="java.lang.Class">com.rest.integration.util.command.requestlog.impl.DefaultSaveRequestLogCommand</value></key>
-                    <bean class="com.rest.integration.util.command.requestlog.impl.DefaultSaveRequestLogCommand" parent="abstractSaveRequestLogCommand"></bean>
-                </entry>
-            </map>
-        </property>
+        <property name="map" ref="saveRequestLogCommandMap"/>
     </bean>
 
     <bean id="abstractSaveRequestLogCommand" class="com.rest.integration.util.command.requestlog.impl.AbstractSaveRequestLogCommand" abstract="true"/>
     <!-- RequestLog Commands END -->
+
+    <!--MOCK-->
+    <bean name="defaultMockGetCustomerCommand" class="com.rest.integration.util.command.rest.impl.DefaultMockGetCustomerCommand"
+          parent="abstractRestCommand"/>
+
+    <bean depends-on="restCommandMap" parent="mapMergeDirective">
+        <property name="sourceMap">
+            <map>
+                <entry key="com.rest.integration.util.command.rest.MockGetCustomerCommand" value-ref="defaultMockGetCustomerCommand"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean  name="defaultSaveRequestLogCommand" class="com.rest.integration.util.command.requestlog.impl.DefaultSaveRequestLogCommand"
+           parent="abstractSaveRequestLogCommand"/>
+
+    <bean depends-on="saveRequestLogCommandMap" parent="mapMergeDirective">
+        <property name="sourceMap">
+            <map>
+                <entry key="com.rest.integration.util.command.requestlog.impl.DefaultSaveRequestLogCommand" value-ref="defaultSaveRequestLogCommand"/>
+            </map>
+        </property>
+    </bean>
+    <!--MOCK END-->
 
 </beans>

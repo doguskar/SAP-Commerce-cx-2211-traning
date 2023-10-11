@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
 
-    <!--<bean class="com.ltb.channeladvisor.data.DCQuantityData">
+    <!--<bean class="org.channeladvisor.data.DCQuantityData">
         <import type="com.fasterxml.jackson.annotation.JsonProperty"/>
         <import type="com.fasterxml.jackson.annotation.JsonIgnore"/>
         <property name="productId" type="java.lang.Integer">
             <annotations scope="member">@JsonProperty("ProductID")</annotations>
         </property>
-        <property name="product" type="com.ltb.channeladvisor.data.ProductData">
+        <property name="product" type="org.channeladvisor.data.ProductData">
             <annotations scope="member">@JsonProperty("Product")</annotations>
             <annotations scope="member">@JsonIgnore</annotations>
         </property>

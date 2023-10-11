@@ -4,12 +4,18 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import com.rest.integration.util.command.requestlog.ISaveRequestLogCommand;
+import com.rest.integration.util.command.requestlog.impl.DefaultSaveRequestLogCommand;
 import com.rest.integration.util.command.rest.IRestCommand;
 import com.rest.integration.util.command.rest.request.IRequest;
-import com.rest.integration.util.command.rest.response.IResponse;
+import com.rest.integration.util.constants.RestintegrationutilConstants;
+import com.rest.integration.util.exception.NotSupportedException;
 import com.rest.integration.util.exception.RestCommandException;
+import com.rest.integration.util.factory.IFactory;
+import com.rest.integration.util.factory.IFactoryRegistry;
 import com.rest.integration.util.model.RequestLogModel;
 import com.rest.integration.util.service.RequestLogService;
+import de.hybris.platform.core.model.ItemModel;
 import de.hybris.platform.servicelayer.config.ConfigurationService;
 import de.hybris.platform.servicelayer.model.ModelService;
 import org.apache.commons.lang3.StringUtils;
@@ -34,7 +40,7 @@ import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
-public abstract class AbstractRestCommand<REQUEST extends IRequest, RESPONSE extends IResponse> implements IRestCommand<REQUEST, RESPONSE> {
+public abstract class AbstractRestCommand<REQUEST extends IRequest, RESPONSE> implements IRestCommand<REQUEST, RESPONSE> {
     private static final Logger LOG = LoggerFactory.getLogger(AbstractRestCommand.class);
     @Resource
     private ModelService modelService;
@@ -44,9 +50,11 @@ public abstract class AbstractRestCommand<REQUEST extends IRequest, RESPONSE ext
     private RequestLogService requestLogService;
     @Resource
     private ConfigurationService configurationService;
+    @Resource
+    private IFactoryRegistry iFactoryRegistry;
 
     @Override
-    public RESPONSE perform(REQUEST request) throws RestCommandException {//, BaseStoreModel baseStore
+    public RESPONSE perform(REQUEST request) throws RestCommandException {
         HttpResponse response = null;
         HttpRequestBase baseRequest = null;
         RESPONSE processedResponse = null;
@@ -73,25 +81,31 @@ public abstract class AbstractRestCommand<REQUEST extends IRequest, RESPONSE ext
             processedResponse = processResponse(response, responseBody);
             return processedResponse;
         } catch (IOException e) {
-            LOG.error("IOException while performing command", e);
+            LOG.error("IOException while performing RestCommand", e);
             exception = e;
             throw new RestCommandException(e);
         } catch (URISyntaxException e) {
-            LOG.error("URISyntaxException while performing command", e);
+            LOG.error("URISyntaxException while performing RestCommand", e);
             exception = e;
             throw new RestCommandException(e);
         } catch (RestCommandException e) {
-            LOG.error("RestCommandException while performing command", e);
+            LOG.error("RestCommandException while performing RestCommand", e);
+            exception = e;
+            throw new RestCommandException(e);
+        } catch (Exception e) {
+            LOG.error("Exception while performing RestCommand", e);
             exception = e;
             throw new RestCommandException(e);
         } finally {
             // Create request log
             if (isCreateRequestLogActive(request)) {
                 final RequestLogModel requestLog = createRequestLog(request, response, baseRequest, responseBody, exception);
-                if (Objects.nonNull(processedResponse)) {
-                    processedResponse.setRequestLog(requestLog);
-                } else {
-                    request.setRequestLog(requestLog);
+                try {
+                    IFactory<ISaveRequestLogCommand> saveRequestLogCommandFactory = iFactoryRegistry.getFactory(RestintegrationutilConstants.SAVE_REQUEST_LOG_COMMAND_FACTORY_KEY);
+                    ISaveRequestLogCommand saveRequestLogCommand = saveRequestLogCommandFactory.create(getSaveRequestLogCommand());
+                    saveRequestLogCommand.execute(requestLog, getSaveRequestLogCommandItem());
+                } catch (NotSupportedException e) {
+                    LOG.error("ISaveRequestLogCommand implementation not found for " + getResponseClass(), e);
                 }
             }
         }
@@ -99,7 +113,9 @@ public abstract class AbstractRestCommand<REQUEST extends IRequest, RESPONSE ext
 
     public void addHeaders(HttpRequestBase baseRequest, REQUEST request) {
         baseRequest.addHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
-        baseRequest.addHeader(HttpHeaders.CONTENT_TYPE, getContentType());
+        if (baseRequest instanceof HttpEntityEnclosingRequestBase) {
+            baseRequest.addHeader(HttpHeaders.CONTENT_TYPE, getContentType());
+        }
     }
 
     public String getContentType() {
@@ -172,6 +188,16 @@ public abstract class AbstractRestCommand<REQUEST extends IRequest, RESPONSE ext
         return null;
     }
 
+    @Override
+    public Class<? extends ISaveRequestLogCommand> getSaveRequestLogCommand() {
+        return DefaultSaveRequestLogCommand.class;
+    }
+
+    @Override
+    public ItemModel getSaveRequestLogCommandItem() {
+        return null;
+    }
+
     private HttpRequestBase getHttpBaseRequest(String uri) {
         return switch (getMethod()) {
             case GET -> new HttpGet(uri);
@@ -211,12 +237,13 @@ public abstract class AbstractRestCommand<REQUEST extends IRequest, RESPONSE ext
 
     public void addQueryStringToUri(HttpRequestBase requestBase, REQUEST request) throws URISyntaxException {
         List<NameValuePair> params = new ArrayList<>();
-        Map<String, String> map = mapper.convertValue(request, new TypeReference<>() {
-        });
-        map.entrySet().forEach(param -> params.add(new BasicNameValuePair(param.getKey(), param.getValue())));
+        Map<String, String> map = mapper.convertValue(request, new TypeReference<>() { });
+        if (map.size() > 0) {
+            map.entrySet().forEach(param -> params.add(new BasicNameValuePair(param.getKey(), param.getValue())));
 
-        URI uri = new URIBuilder(requestBase.getURI()).addParameters(params).build();
-        requestBase.setURI(uri);
+            URI uri = new URIBuilder(requestBase.getURI()).addParameters(params).build();
+            requestBase.setURI(uri);
+        }
     }
 
     private String setPathVariables(String uri, REQUEST request) throws URISyntaxException {
@@ -259,7 +286,7 @@ public abstract class AbstractRestCommand<REQUEST extends IRequest, RESPONSE ext
     }
 
     private String createRequestLogEnabledKey(REQUEST request) {
-        return "create.request.log." + request.getClass() + ".enabled";
+        return "create.request.log." + request.getClass().getSimpleName() + ".enabled";
     }
 
 

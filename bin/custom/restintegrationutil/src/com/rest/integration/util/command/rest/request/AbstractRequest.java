@@ -7,17 +7,7 @@ import java.util.Map;
 
 public abstract class AbstractRequest implements IRequest {
     @JsonIgnore
-    private RequestLogModel requestLog;
-    @JsonIgnore
     private Map<String, String> pathVariables;
-
-    public RequestLogModel getRequestLog() {
-        return requestLog;
-    }
-
-    public void setRequestLog(RequestLogModel requestLog) {
-        this.requestLog = requestLog;
-    }
 
     public Map<String, String> getPathVariables() {
         return pathVariables;

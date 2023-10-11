@@ -3,24 +3,20 @@
  Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
 -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:aop="http://www.springframework.org/schema/aop"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans.xsd
-           http://www.springframework.org/schema/aop
-           http://www.springframework.org/schema/aop/spring-aop.xsd">
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+
 	<import resource="restintegrationutil-commands-spring.xml"/>
 
-    <bean id="restIntegrationUtilService" class="com.rest.integration.util.service.impl.DefaultRestIntegrationUtilService"/>
-
-	<bean id="restCommandObjectMapper" class="com.fasterxml.jackson.databind.ObjectMapper"/>
+	<context:component-scan base-package="com.rest.integration.util.configuration"/>
 
 	<alias name="defaultRequestLogService" alias="requestLogService" />
 	<bean id="defaultRequestLogService" class="com.rest.integration.util.service.impl.DefaultRequestLogService"/>
 
 	<alias name="defaultIFactoryRegistry" alias="iFactoryRegistry" />
 	<bean name="defaultIFactoryRegistry" class="com.rest.integration.util.factory.impl.DefaultIFactoryRegistry"/>
-
-	<alias name="defaultIntegrationService" alias="integrationService"/>
-	<bean id="defaultIntegrationService" class="com.rest.integration.util.service.impl.DefaultIntegrationService"/>
 </beans>
