@@ -1,0 +1,48 @@
+$contentCatalog=electronicsContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$siteResource=jar:de.hybris.personalizationtrail.constants.PersonalizationtrailConstants&/personalizationtrail/import
+$medias=medias(code, $contentCV);
+$mediaContainer=media(qualifier, $contentCV);
+$defaultPassword=123
+
+INSERT_UPDATE UserGroup;uid[unique=true];groups(uid);members(uid);
+                       ;personalizedUserGroup1;;;
+                       ;personalizedUserGroup2;;;
+
+INSERT_UPDATE Customer;uid[unique=true];groups(uid);password[default=$defaultPassword];name;
+                      ;customer1@hybris.com;customergroup,personalizedUserGroup1;;John Doe;
+                      ;customer2@hybris.com;customergroup,personalizedUserGroup2;;John Doe;
+
+INSERT_UPDATE CxCustomization;code[unique=true];name;$contentCV[unique=true];group(code,$contentCV)[default='electronicsCustomizationGroup'];status(code)[default=ENABLED]
+                             ;Banner;Banner;;
+
+INSERT_UPDATE CxVariation;code[unique=true];name;$contentCV[unique=true];enabled[default=true];customization(code,$contentCV)[unique=true];&variationRef
+                         ;variationForUserGroup;variationForUserGroup;;;Banner;variationForUserGroup
+
+INSERT_UPDATE UserGroupTrigger;code[unique=true];variation(code,$contentCV)[unique=true];$contentCV[unique=true];userGroup(uid);
+                              ;userGroupTrigger;variationForUserGroup;;personalizedUserGroup1;
+
+INSERT_UPDATE Media;mediaFormat(qualifier);code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];realfilename;altText;mime[default='image/jpeg'];$contentCV[unique=true];folder(qualifier)[default=images];
+                   ;mobile;userGroupBanner_480W.jpg;$siteResource/images/banners/userGroupBanner_480W.jpg;userGroupBanner_480W.jpg;"Save Big On Select SLR & DSLR Cameras";
+                   ;tablet;userGroupBanner_770W.jpg;$siteResource/images/banners/userGroupBanner_770W.jpg;userGroupBanner_770W.jpg;"Save Big On Select SLR & DSLR Cameras";
+                   ;desktop;userGroupBanner_960W.jpg;$siteResource/images/banners/userGroupBanner_960W.jpg;userGroupBanner_960W.jpg;"Save Big On Select SLR & DSLR Cameras";
+                   ;widescreen;userGroupBanner_1400W.jpg;$siteResource/images/banners/userGroupBanner_1400W.jpg;userGroupBanner_1400W.jpg;"Save Big On Select SLR & DSLR Cameras";
+
+INSERT_UPDATE MediaContainer;qualifier[unique=true];$medias;$contentCV[unique=true]
+                            ;variationForUserGroupMediaContainer;userGroupBanner_480W.jpg,userGroupBanner_770W.jpg,userGroupBanner_960W.jpg,userGroupBanner_1400W.jpg
+
+INSERT_UPDATE SimpleResponsiveBannerComponent;$contentCV[unique=true];uid[unique=true];$mediaContainer;name;urlLink;&componentRef
+                                             ;;variationForUserGroupComponent;variationForUserGroupMediaContainer;Electronics Homepage Splash Banner Component;/OpenCatalogue/Cameras/Digital-Cameras/Digital-SLR/c/578;variationForUserGroupComponent
+
+UPDATE CxCmsComponentContainer;$contentCV[unique=true];uid[unique=true];simpleCMSComponents(&componentRef)[mode=append]
+                              ;;Section1SlotHomepageCxContainer;variationForUserGroupComponent
+
+INSERT_UPDATE CxCmsAction;containerId;componentId;code[unique=true];type(code);target;variation(&variationRef);$contentCV[unique=true]
+                         ;Section1SlotHomepageCxContainer;variationForUserGroupComponent;userGroupAction;PLAIN;cxCmsActionPerformable;variationForUserGroup;
+
+
+
+
+
+INSERT_UPDATE OAuthClientDetails;clientId[unique=true]    ;resourceIds       ;scope        ;authorizedGrantTypes                                            ;authorities             ;clientSecret
+                                ;oauth_client           ;hybris            ;basic,personalizationwebservices        ;refresh_token,password,client_credentials    ;ROLE_CLIENT             ;secret
