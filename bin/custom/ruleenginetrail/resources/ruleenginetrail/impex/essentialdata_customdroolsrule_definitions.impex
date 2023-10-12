@@ -1,0 +1,12 @@
+############################# CONDITION DEFINITION RULE TYPE MAPPINGS ##########################
+INSERT_UPDATE RuleConditionDefinitionRuleTypeMapping;definition(id)[unique=true];ruleType(code)[default=CustomSourceRule][unique=true]
+                                                    ;y_cart_total;
+                                                    ;y_qualifying_products;
+
+############################# ACTION DEFINITION RULE TYPE MAPPINGS ##########################
+INSERT_UPDATE RuleActionDefinitionRuleTypeMapping;definition(id)[unique=true];ruleType(code)[default=CustomSourceRule][unique=true]
+                                                 ;y_order_fixed_discount;
+                                                 ;y_trigger_message;
+
+INSERT_UPDATE RuleToEngineRuleTypeMapping;ruleType(code)[unique=true];engineRuleType(code)[default=CUSTOMDROOLSRULE]
+                                         ;CustomSourceRule;

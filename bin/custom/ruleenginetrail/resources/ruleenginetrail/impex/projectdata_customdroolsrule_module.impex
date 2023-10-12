@@ -1,0 +1,26 @@
+INSERT_UPDATE DroolsKIEModule;name[unique=true];mvnGroupId;mvnArtifactId;mvnVersion;ruleType(code);active;version;
+                             ;customdroolsrule-module;hybris-rules;customdroolsrule;1.0.0;CUSTOMDROOLSRULE;true;-1;
+                             ;customdroolsrule-preview-module;hybris-rules;customdroolsrule-preview;1.0.0;CUSTOMDROOLSRULE;true;-1;
+
+INSERT_UPDATE DroolsKIEBase;name[unique=true];kieModule(name)[unique=true];equalityBehavior(code);eventProcessingMode(code)
+                           ;customdroolsrule-base;customdroolsrule-module;EQUALITY;STREAM
+                           ;customdroolsrule-preview-base;customdroolsrule-preview-module;EQUALITY;STREAM
+
+INSERT_UPDATE DroolsKIESession;name[unique=true];kieBase(name)[unique=true];sessionType(code)
+                              ;customdroolsrule-session;customdroolsrule-base;STATEFUL
+                              ;customdroolsrule-preview-session;customdroolsrule-preview-base;STATEFUL
+
+INSERT_UPDATE DroolsRuleEngineContext;name[unique=true];kieSession(name);ruleFiringLimit
+                                     ;customdroolsrule-context;customdroolsrule-session;200;
+                                     ;customdroolsrule-preview-context;customdroolsrule-preview-session;200;
+
+UPDATE DroolsKIEModule;name[unique=true];defaultKIEBase(name)
+                      ;customdroolsrule-module;customdroolsrule-base
+                      ;customdroolsrule-preview-module;customdroolsrule-preview-base
+
+UPDATE DroolsKIEBase;name[unique=true];defaultKIESession(name)
+                    ;customdroolsrule-base;customdroolsrule-session
+                    ;customdroolsrule-preview-base;customdroolsrule-preview-session
+
+UPDATE DroolsKIEModule;name[unique=true];allowedTargets(name)
+                      ;customdroolsrule-preview-module;customdroolsrule-module
