@@ -105,3 +105,6 @@ wro_addons.xml
 velocity.log
 .classpath.bak
 **/spartacussampledata/**
+**/traningocc/**
+**/resources/backoffice/*.jar
+
