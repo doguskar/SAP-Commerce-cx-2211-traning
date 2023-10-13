@@ -1,0 +1,19 @@
+{
+    "name": "smartedittrail",
+    "extension": {
+        "type": "inner",
+        "angularApp": "smartedittrail"
+    },
+    "typescript": {
+        "entry": "./src/index.ts",
+        "dist": "./dist/index.js"
+    },
+    "legacy": {
+        "js": ["./src/**/*.js"],
+        "ngTemplates": {
+            "moduleName": "smartedittrailTemplates",
+            "includePathInName": false,
+            "files": ["./src/**/*.html"]
+        }
+    }
+}
