@@ -1,0 +1,13 @@
+<div>
+    <span>Value: {{model[qualifier]}}</span>
+    <input type="range"
+           id="{{field.qualifier}}-range"
+           class="fd-form-control"
+           data-ng-class="{ 'is-invalid': field.hasErrors, 'is-warning': field.hasWarnings }"
+           placeholder="{{field.tooltip| translate}}"
+           name="{{field.qualifier}}"
+           data-ng-disabled="$ctrl.isFieldDisabled()"
+           data-ng-model="model[qualifier]"
+           data-min="5"
+           data-max="50" />
+</div>

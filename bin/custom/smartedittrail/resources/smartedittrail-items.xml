@@ -5,6 +5,48 @@
 <!-- ATTENTION: This is just an example file. You have to edit it according 
 	to your needs. -->
 
-<items xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="items.xsd">
+<items xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="items.xsd">
+
+	<collectiontypes>
+		<collectiontype code="promotionBannerList" elementtype="PromotionBanner"
+						autocreate="true" generate="true" type="list" />
+	</collectiontypes>
+
+	<itemtypes>
+		<itemtype code="CustomPage" jaloclass="de.hybris.platform.smartedittrail.jalo.pages.CustomPage" extends="AbstractPage" autocreate="true" generate="true">
+		</itemtype>
+
+		<itemtype code="CustomContentPage" jaloclass="de.hybris.platform.smartedittrail.jalo.pages.CustomContentPage" extends="ContentPage" autocreate="true" generate="true">
+		</itemtype>
+
+		<!-- Adding Promotion Banner -->
+		<itemtype code="PromotionBanner" generate="true" extends="SimpleResponsiveBannerComponent" autocreate="true"
+				  jaloclass="com.sap.smartedittrail.jalo.PromotionBanner">
+			<attributes>
+				<attribute qualifier="discount" type="java.lang.Integer">
+					<persistence type="property" />
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<!-- Adding Promotion Banner Carousel component -->
+		<itemtype code="PromotionBannerCarousel" generate="true" extends="SimpleCMSComponent" autocreate="true"
+				  jaloclass="com.sap.smartedittrail.jalo.PromotionBannerCarousel">
+			<attributes>
+				<attribute qualifier="maxNumOfBanners" type="java.lang.Integer">
+					<persistence type="property" />
+					<description>The max number of banners that can be displayed in the carousel.</description>
+				</attribute>
+				<attribute qualifier="title" type="localized:java.lang.String">
+					<persistence type="property" />
+					<modifiers optional="true" />
+					<description>Title of the whole carousel.</description>
+				</attribute>
+				<attribute qualifier="banners" type="promotionBannerList">
+					<persistence type="property" />
+					<description>The list of banners to be rotated in the carousel.</description>
+				</attribute>
+			</attributes>
+		</itemtype>
+	</itemtypes>
 </items>

@@ -4,36 +4,41 @@
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { IFeatureService, moduleUtils, SeEntryModule } from 'smarteditcommons';
+import { IFeatureService, moduleUtils, SeEntryModule, EditorFieldMappingService, SeRouteService, MessageModule } from 'smarteditcommons';
 import { AbAnalyticsToolbarItemComponent } from './abAnalyticsToolbarItem';
 import { DummyInterceptor } from './DummyInterceptor';
+import {ToolbarModule} from 'smarteditcontainer';
+import { TrailPageViewComponent } from './trailPage/TrailPageViewComponent';
 
 @SeEntryModule('smartedittrailContainer')
 @NgModule({
-    imports: [BrowserModule],
-    declarations: [AbAnalyticsToolbarItemComponent],
-    entryComponents: [AbAnalyticsToolbarItemComponent],
+    imports: [
+        BrowserModule,
+        MessageModule,
+        UpgradeModule,
+        SeRouteService.provideNgRoute([
+            {
+                path: 'ng/trail',
+                component: TrailPageViewComponent
+            }
+        ])
+    ],
+    declarations: [TrailPageViewComponent],
+    entryComponents: [],
     providers: [
         {
             provide: HTTP_INTERCEPTORS,
             useClass: DummyInterceptor,
             multi: true
         },
-        moduleUtils.initialize(
-            (featureService: IFeatureService) => {
-                // Create the toolbar item as a feature.
-                featureService.addToolbarItem({
-                    toolbarId: 'smartEditPerspectiveToolbar',
-                    key: 'abAnalyticsToolbarItem',
-                    type: 'HYBRID_ACTION',
-                    nameI18nKey: 'ab.analytics.toolbar.item.name',
-                    priority: 2,
-                    section: 'left',
-                    iconClassName: 'icon-message-information se-toolbar-menu-ddlb--button__icon',
-                    component: AbAnalyticsToolbarItemComponent
+        moduleUtils.bootstrap(
+            (editorFieldMappingService: EditorFieldMappingService) => {
+                // Adds the mapping. With this the new widget will be used for all fields of type "Range"
+                editorFieldMappingService.addFieldMapping('Range', null, null, {
+                    template: 'rangeFieldTemplate.html'
                 });
             },
-            [IFeatureService]
+            [EditorFieldMappingService]
         )
     ]
 })

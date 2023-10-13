@@ -14,14 +14,17 @@
                       
         
         <requires-extension name="smartedit"/>
-                      
+
+        <requires-extension name="cms2"/>
+        <requires-extension name="acceleratorcms"/>
+        <requires-extension name="cmsfacades"/>
         
         <coremodule generated="true" manager="com.sap.smartedittrail.jalo.SmartedittrailManager" packageroot="com.sap.smartedittrail"/>
                        
         
         <webmodule jspcompile="false" webroot="/smartedittrail"/>
-                       
-        
+
+
            
     
     </extension>

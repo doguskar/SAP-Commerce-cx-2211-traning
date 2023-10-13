@@ -36,6 +36,7 @@
     },
     "dependencies": {
         "smarteditcommons": "0.0.1",
+        "smarteditcontainer": "0.0.1",
         "smartedittrailcommons": "0.0.1",
         "@smart/utils": "1.1.52",
         "@angular/animations": "11.2.14",
