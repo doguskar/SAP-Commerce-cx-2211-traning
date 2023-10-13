@@ -1,10 +1,8 @@
-package com.sap.smartedittrail.predicate;
+package com.sap.smartedittrail.predicates;
 
 import de.hybris.platform.core.model.type.AttributeDescriptorModel;
 
 import java.util.function.Predicate;
-
-import org.springframework.beans.factory.annotation.Required;
 
 public class DiscountAttributePredicate implements Predicate<AttributeDescriptorModel> {
 

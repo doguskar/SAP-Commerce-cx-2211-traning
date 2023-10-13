@@ -1,4 +1,4 @@
-package com.sap.smartedittrail.validator;
+package com.sap.smartedittrail.validators;
 
 import de.hybris.platform.core.model.type.AttributeDescriptorModel;
 import de.hybris.platform.cmsfacades.cmsitems.attributevalidators.IntegerAttributeContentValidator;

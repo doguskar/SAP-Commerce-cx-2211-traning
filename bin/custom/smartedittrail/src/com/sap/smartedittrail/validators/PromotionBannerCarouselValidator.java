@@ -1,4 +1,4 @@
-package com.sap.smartedittrail.validator;
+package com.sap.smartedittrail.validators;
 
 import static de.hybris.platform.cmsfacades.common.validator.ValidationErrorBuilder.newValidationErrorBuilder;
 

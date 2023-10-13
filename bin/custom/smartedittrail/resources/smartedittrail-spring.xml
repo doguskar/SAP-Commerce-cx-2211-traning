@@ -24,7 +24,7 @@
 	</bean>
 
 	<alias name="defaultCMSCustomItemModelValidator" alias="promotionBannerCarouselComponentValidator"/>
-	<bean id="defaultCMSCustomItemModelValidator" class="com.sap.smartedittrail.validator.PromotionBannerCarouselValidator"
+	<bean id="defaultCMSCustomItemModelValidator" class="com.sap.smartedittrail.validators.PromotionBannerCarouselValidator"
 		  parent="abstractCmsItemTypeValidator">
 	</bean>
 
@@ -38,15 +38,64 @@
 		<property name="value" ref="promotionBannerCarouselComponentValidator" />
 	</bean>
 
-	<bean id="discountAttributePredicate" class="com.sap.smartedittrail.predicate.DiscountAttributePredicate"/>
+	<bean id="discountAttributePredicate" class="com.sap.smartedittrail.predicates.DiscountAttributePredicate"/>
 
 	<alias name="defaultDiscountAttributeValidator" alias="discountAttributeValidator"/>
-	<bean id="defaultDiscountAttributeValidator" class="com.sap.smartedittrail.validator.DiscountAttributeValidator"
+	<bean id="defaultDiscountAttributeValidator" class="com.sap.smartedittrail.validators.DiscountAttributeValidator"
 		  parent="cmsIntegerAttributeContentValidator">
 	</bean>
 
 	<bean depends-on="cmsBaseAttributeContentValidatorMap" parent="mapMergeDirective">
 		<property name="key" ref="discountAttributePredicate" />
 		<property name="value" ref="discountAttributeValidator" />
+	</bean>
+
+	<bean depends-on="defaultCmsStructureTypeBlacklistAttributeMap" parent="mapMergeDirective">
+		<property name="key" value="TrainingComponent"/>
+		<property name="value" value="blacklistedMessage"/>
+	</bean>
+
+	<bean id="trainingAttributeToDataContentConverter" class="com.sap.smartedittrail.converters.TrainingAttributeToDataContentConverter"/>
+	<bean id="trainingDataToAttributeContentConverter" class="com.sap.smartedittrail.converters.TrainingDataToAttributeContentConverter"/>
+	<bean id="trainingAttributePredicate" class="com.sap.smartedittrail.predicates.TrainingAttributePredicate"/>
+
+	<alias name="defaultTrainingContentConverter" alias="trainingContentConverter"/>
+	<bean name="defaultTrainingContentConverter" parent="cmsAbstractContentConverter"
+		  p:modelToDataConverter-ref="trainingAttributeToDataContentConverter"
+		  p:dataToModelConverter-ref="trainingDataToAttributeContentConverter"
+		  p:constrainedBy-ref="trainingAttributePredicate">
+	</bean>
+
+	<bean depends-on="cmsAttributeContentConverterList" parent="listMergeDirective" >
+		<property name="add" ref="trainingContentConverter"/>
+	</bean>
+
+	<bean id="trainingItemContentPopulator" class="com.sap.smartedittrail.populators.TrainingItemContentPopulator"/>
+
+	<bean depends-on="cmsContentItemTypePopulatorsMap" parent="mapMergeDirective">
+		<property name="key" value="TrainingComponent"/>
+		<property name="value" ref="trainingItemContentPopulator"/>
+	</bean>
+
+	<bean id="trainingNumMessageAttributePredicate" class="com.sap.smartedittrail.predicates.TrainingNumMessageAttributePredicate"/>
+
+	<alias name="defaultCmsTrainingNumMessageAttributeValidator" alias="cmsTrainingNumMessageAttributeValidator"/>
+	<bean id="defaultCmsTrainingNumMessageAttributeValidator"
+		  class="com.sap.smartedittrail.validators.TrainingAttributeContentValidator"
+		  parent="abstractCmsAttributeContentValidator">
+	</bean>
+
+	<bean depends-on="cmsBaseAttributeContentValidatorMap" parent="mapMergeDirective">
+		<property name="key" ref="trainingNumMessageAttributePredicate" />
+		<property name="value" ref="cmsTrainingNumMessageAttributeValidator" />
+	</bean>
+
+	<alias name="defaultCMSCustomCmsTrainingModelValidator" alias="cmsCustomCmsTrainingModelValidator"/>
+	<bean id="defaultCMSCustomCmsTrainingModelValidator" class="com.sap.smartedittrail.validators.DefaultCMSTrainingModelValidator"
+		  parent="abstractCmsItemTypeValidator">
+	</bean>
+	<bean depends-on="cmsItemValidatorMapUpdate" parent="mapMergeDirective">
+		<property name="key" value="TrainingComponent" />
+		<property name="value" ref="cmsCustomCmsTrainingModelValidator" />
 	</bean>
 </beans>

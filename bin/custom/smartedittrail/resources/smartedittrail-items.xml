@@ -48,5 +48,20 @@
 				</attribute>
 			</attributes>
 		</itemtype>
+
+		<itemtype code="TrainingComponent" generate="true" extends="SimpleCMSComponent" autocreate="true"
+				  jaloclass="com.sap.smartedittrail.jalo.TrainingComponent">
+			<attributes>
+				<attribute qualifier="customMessage" type="localized:java.lang.String">
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="blacklistedMessage" type="localized:java.lang.String">
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="numMessages" type="java.lang.Integer">
+					<persistence type="property" />
+				</attribute>
+			</attributes>
+		</itemtype>
 	</itemtypes>
 </items>

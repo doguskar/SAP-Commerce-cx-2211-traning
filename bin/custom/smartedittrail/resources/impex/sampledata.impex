@@ -1,3 +1,8 @@
 INSERT_UPDATE ComponentTypeGroups2ComponentType;source(code)[unique=true];target(code)[unique=true]
                                                ;wide;PromotionBannerCarousel
                                                ;narrow;PromotionBannerCarousel
+
+
+INSERT_UPDATE ComponentTypeGroups2ComponentType; source(code)[unique=true]; target(code)[unique=true]
+                                               ; wide                     ; TrainingComponent
+                                               ; narrow                   ; TrainingComponent
