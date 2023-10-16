@@ -1,0 +1,21 @@
+# Define average range set
+INSERT_UPDATE SolrValueRangeSet; name[unique = true]; qualifier; type
+                               ; hybrisAvgRating    ;          ; double
+# Define average rating ranges
+INSERT_UPDATE SolrValueRange; solrValueRangeSet(name)[unique = true]; name[unique = true]; from; to
+                            ; hybrisAvgRating                       ; 1-Star             ; 0.0 ; 1.49999
+                            ; hybrisAvgRating                       ; 2-Star             ; 1.5 ; 2.49999
+                            ; hybrisAvgRating                       ; 3-Star             ; 2.5 ; 3.49999
+                            ; hybrisAvgRating                       ; 4-Star             ; 3.5 ; 4.49999
+                            ; hybrisAvgRating                       ; 5-Star             ; 4.5
+
+
+
+
+$solrIndexedType=electronicsProductType
+$lang=en
+
+INSERT_UPDATE SolrIndexedProperty;solrIndexedType(identifier)[unique=true];name[unique=true];type(code);currency[def ault=false];localized[default=false];multiValue[default=false];facet[default=true];facetType(code);facetSort(code);priority;visible;useForSpellchecking[default=false];useForAutocomplete[default=false];fieldValueProvider;rangeSets(name)
+                                 ;$solrIndexedType;reviewAvgRatingRange;double ;;;;true;MultiSelectOr;Alpha;2000;true;;;rangedAvgCustomerRatingResolver;hybrisAvgRating
+UPDATE SolrIndexedProperty;solrIndexedType(identifier)[unique=true];name[unique=true];displayName[lang=$lang]
+;$solrIndexedType;reviewAvgRatingRange;"Reviews"
