@@ -1,0 +1,13 @@
+$storeUid=electronics
+
+INSERT_UPDATE FlexibleSearchRetentionRule; code[unique = true]; actionReference; retentionTimeSeconds; searchQuery
+; requestLogCleanupRule ; basicRemoveCleanupAction ; 86400 ; SELECT {pk}, {itemtype} FROM {RequestLog} WHERE ({persistent} != 1 OR {persistent} IS NULL) AND {creationtime} <= ?CALC_RETIREMENT_TIME
+
+INSERT_UPDATE RetentionJob; code[unique = true]; retentionRule(code); batchSize
+; requestLogCleanupJob ; requestLogCleanupRule ; 100
+
+INSERT_UPDATE CronJob; code[unique = true]; job(code)[forceWrite = true]; baseStore(uid); cmsSite(uid); sessionLanguage(isoCode)[default = en]
+; requestLogCleanupCronJob ; requestLogCleanupJob ; $storeUid ; $storeUid
+
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];second;minute;hour;day;month;year;relative;active;maxAcceptableDelay
+; requestLogCleanupCronJob ; 0 ; 0 ; 1 ; 1 ; -1 ; -1 ; true ; true ; -1 ;

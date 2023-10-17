@@ -16,19 +16,20 @@ public class DefaultRequestLogService implements RequestLogService {
     private ModelService modelService;
 
     @Override
-    public RequestLogModel createRequestLog(String requestBody, String uri, String responseBody, String method) {
+    public RequestLogModel createRequestLog(String requestBody, String uri, String responseBody, String method, boolean isPersistent) {
         final RequestLogModel requestLog = modelService.create(RequestLogModel.class);
         requestLog.setCode(UUID.randomUUID().toString());
         requestLog.setRequestBody(requestBody);
         requestLog.setUri(uri);
         requestLog.setResponseBody(responseBody);
         requestLog.setMethod(method);
+        requestLog.setPersistent(isPersistent);
         return requestLog;
     }
 
     @Override
-    public RequestLogModel createRequestLog(String requestBody, String uri, String responseBody, Integer statusCode, String method) {
-        final RequestLogModel requestLog = createRequestLog(requestBody, uri, responseBody, method);
+    public RequestLogModel createRequestLog(String requestBody, String uri, String responseBody, Integer statusCode, String method, boolean isPersistent) {
+        final RequestLogModel requestLog = createRequestLog(requestBody, uri, responseBody, method, isPersistent);
         if (Objects.nonNull(statusCode)) {
             requestLog.setStatusCode(statusCode);
             Response.Status status = Response.Status.fromStatusCode(statusCode);
@@ -38,8 +39,8 @@ public class DefaultRequestLogService implements RequestLogService {
     }
 
     @Override
-    public RequestLogModel createRequestLog(String requestBody, String uri, String responseBody, Integer statusCode, String method, Exception exception) {
-        final RequestLogModel requestLog = createRequestLog(requestBody, uri, responseBody, statusCode, method);
+    public RequestLogModel createRequestLog(String requestBody, String uri, String responseBody, Integer statusCode, String method, Exception exception, boolean isPersistent) {
+        final RequestLogModel requestLog = createRequestLog(requestBody, uri, responseBody, statusCode, method, isPersistent);
         if (Objects.nonNull(exception)) {
             requestLog.setErrorStackTrace(Utilities.getStackTraceAsString(exception));
         }
@@ -47,8 +48,8 @@ public class DefaultRequestLogService implements RequestLogService {
     }
 
     @Override
-    public RequestLogModel createRequestLog(String requestBody, String uri, String responseBody, String method, Boolean isSuccess, Exception exception) {
-        RequestLogModel requestLog = createRequestLog(requestBody, uri, responseBody, method);
+    public RequestLogModel createRequestLog(String requestBody, String uri, String responseBody, String method, Boolean isSuccess, Exception exception, boolean isPersistent) {
+        RequestLogModel requestLog = createRequestLog(requestBody, uri, responseBody, method, isPersistent);
         requestLog.setIsSuccess(isSuccess);
         if (Objects.nonNull(exception)) {
             requestLog.setErrorStackTrace(Utilities.getStackTraceAsString(exception));

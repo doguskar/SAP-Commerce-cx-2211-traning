@@ -32,6 +32,9 @@
                     <editorArea:attribute qualifier="errorStackTrace"/>
                     <editorArea:attribute qualifier="code"/>
                 </editorArea:section>
+                <editorArea:section name="hmc.section.common">
+                    <editorArea:attribute qualifier="persistent"/>
+                </editorArea:section>
             </editorArea:tab>
         </editorArea:editorArea>
     </context>

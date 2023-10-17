@@ -19,4 +19,6 @@
 
 	<alias name="defaultIFactoryRegistry" alias="iFactoryRegistry" />
 	<bean name="defaultIFactoryRegistry" class="com.rest.integration.util.factory.impl.DefaultIFactoryRegistry"/>
+
+	<bean id="dkpromotionengineSystemSetup" class="com.rest.integration.util.setup.RestIntegrationUtilSystemSetup" parent="abstractCoreSystemSetup"/>
 </beans>

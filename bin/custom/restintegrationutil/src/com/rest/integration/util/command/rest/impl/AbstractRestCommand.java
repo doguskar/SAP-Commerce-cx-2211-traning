@@ -237,7 +237,8 @@ public abstract class AbstractRestCommand<REQUEST extends IRequest, RESPONSE> im
 
     public void addQueryStringToUri(HttpRequestBase requestBase, REQUEST request) throws URISyntaxException {
         List<NameValuePair> params = new ArrayList<>();
-        Map<String, String> map = mapper.convertValue(request, new TypeReference<>() { });
+        Map<String, String> map = mapper.convertValue(request, new TypeReference<>() {
+        });
         if (map.size() > 0) {
             map.entrySet().forEach(param -> params.add(new BasicNameValuePair(param.getKey(), param.getValue())));
 
@@ -269,9 +270,18 @@ public abstract class AbstractRestCommand<REQUEST extends IRequest, RESPONSE> im
                     responseBody,
                     statusCode,
                     baseRequest.getMethod(),
-                    exception);
+                    exception,
+                    isPersistent(request));
         }
         return null;
+    }
+
+    public boolean isPersistent(REQUEST request) {
+        return configurationService.getConfiguration().getBoolean(isRequestLogPersistentKey(request), false);
+    }
+
+    private String isRequestLogPersistentKey(REQUEST request) {
+        return "request.log." + request.getClass().getSimpleName() + ".persistent";
     }
 
     public boolean isCreateRequestLogActive(REQUEST request) {

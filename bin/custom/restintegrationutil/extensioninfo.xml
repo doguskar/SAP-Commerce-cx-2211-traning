@@ -2,6 +2,8 @@
 <extensioninfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="extensioninfo.xsd">
     <extension abstractclassprefix="Generated" classprefix="Restintegrationutil" jaloLogicFree="true" managername="RestintegrationutilManager" managersuperclass="de.hybris.platform.jalo.extension.Extension" name="restintegrationutil" usemaven="false">
 
+        <requires-extension name="commerceservices" />
+
         <coremodule generated="true" manager="com.rest.integration.util.jalo.RestintegrationutilManager" packageroot="com.rest.integration.util"/>
 
         <meta key="backoffice-module" value="true"/>

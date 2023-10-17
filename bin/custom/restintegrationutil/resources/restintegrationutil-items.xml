@@ -56,6 +56,11 @@
 						</columntype>
 					</persistence>
 				</attribute>
+				<attribute qualifier="persistent" type="boolean">
+					<persistence type="property"/>
+					<modifiers optional="false"/>
+					<defaultvalue>Boolean.FALSE</defaultvalue>
+				</attribute>
 			</attributes>
 		</itemtype>
 	</itemtypes>

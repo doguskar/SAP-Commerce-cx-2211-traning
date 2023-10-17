@@ -28,4 +28,6 @@ public interface IRestCommand<REQUEST extends IRequest, RESPONSE> {
     Class<? extends ISaveRequestLogCommand> getSaveRequestLogCommand();
 
     ItemModel getSaveRequestLogCommandItem();
+
+    boolean isPersistent(REQUEST request);
 }
