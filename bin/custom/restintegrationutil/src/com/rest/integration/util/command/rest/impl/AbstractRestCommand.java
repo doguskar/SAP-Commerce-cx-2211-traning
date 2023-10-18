@@ -103,7 +103,7 @@ public abstract class AbstractRestCommand<REQUEST extends IRequest, RESPONSE> im
                 try {
                     IFactory<ISaveRequestLogCommand> saveRequestLogCommandFactory = iFactoryRegistry.getFactory(RestintegrationutilConstants.SAVE_REQUEST_LOG_COMMAND_FACTORY_KEY);
                     ISaveRequestLogCommand saveRequestLogCommand = saveRequestLogCommandFactory.create(getSaveRequestLogCommand());
-                    saveRequestLogCommand.execute(requestLog, getSaveRequestLogCommandItem());
+                    saveRequestLogCommand.execute(requestLog, getSaveRequestLogCommandItem(request));
                 } catch (NotSupportedException e) {
                     LOG.error("ISaveRequestLogCommand implementation not found for " + getResponseClass(), e);
                 }
@@ -176,7 +176,7 @@ public abstract class AbstractRestCommand<REQUEST extends IRequest, RESPONSE> im
     }
 
     @Override
-    public String getPath() {
+    public String getPath() throws RestCommandException {
         return null;
     }
 
@@ -194,8 +194,8 @@ public abstract class AbstractRestCommand<REQUEST extends IRequest, RESPONSE> im
     }
 
     @Override
-    public ItemModel getSaveRequestLogCommandItem() {
-        return null;
+    public ItemModel getSaveRequestLogCommandItem(REQUEST request) {
+        return request.getSaveRequestLogCommandItem();
     }
 
     private HttpRequestBase getHttpBaseRequest(String uri) {

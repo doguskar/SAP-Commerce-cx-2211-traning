@@ -9,32 +9,254 @@
 <items 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 			xsi:noNamespaceSchemaLocation="items.xsd">
 
+	<!--<enumtypes>
+		<enumtype code="CargoType" generate="false" autocreate="false">
+			<value code="PAAZL" />
+		</enumtype>
+	</enumtypes>-->
+
 	<itemtypes>
-<!--
-		<itemtype generate="true"
-		   code="MyProduct"
-		   jaloclass="com.paazl.jalo.MyProduct"
-		   extends="Product"
-		   autocreate="true"
-	   >
+		<!--from other exts-->
+		<itemtype code="BaseStore" autocreate="false" generate="false">
 			<attributes>
-				<attribute qualifier="myExampleInitialStringField" type="java.lang.String">
-					<description>My Example Initial String Value</description>
-					<modifiers initial="true"/>
+				<attribute qualifier="configuration" type="BaseStoreConfiguration">
 					<persistence type="property"/>
 				</attribute>
-
-				<attribute qualifier="myExampleBooleanField" type="java.lang.Boolean">
-					<description>Example Initial Boolean Field</description>
-               <persistence type="property"/>
-				</attribute>
-
-				<attribute qualifier="media" type="Media">
-					<persistence type="property"/>
-				</attribute>
-
 			</attributes>
 		</itemtype>
--->
+		<!--from other ext END-->
+
+		<itemtype code="PaazlConfiguration" extends="GenericItem">
+			<deployment table="paazlConfiguration" typecode="14000"/>
+			<attributes>
+				<attribute qualifier="code" type="java.lang.String">
+					<persistence type="property"/>
+					<modifiers unique="true" optional="false" initial="true"/>
+				</attribute>
+				<attribute qualifier="baseUrl" type="java.lang.String">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="checkoutJsSrc" type="java.lang.String">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="apiKey" type="java.lang.String">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="apiSecret" type="java.lang.String">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="checkoutTokenPath" type="java.lang.String">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="paazlWidgetParameters" type="PaazlWidgetParameters">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="checkoutPath" type="java.lang.String">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="orderPath" type="java.lang.String">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="codPaymentModes" type="PaymentModeCollection">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="supportedLanguages" type="StringSet">
+					<description>The ISO 639-1 or ISO 639-2 code for the widget's display language.</description>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="contract" type="java.lang.String">
+					<description>The identification code of your carrier contract for an outbound shipment. Note! If you don't have this code, contact Paazl Customer Support</description>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="returnContract" type="java.lang.String">
+					<description>The identification code of your carrier contract for a return shipment. Note! If you don't have this code, contact Paazl Customer Support</description>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="multiPackageShipment" type="java.lang.Boolean">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="deliveryMode" type="ZoneDeliveryMode">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="orderShipmentsPath" type="java.lang.String">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="shipmentRequestParameters" type="PaazlShipmentRequestParameters">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="webshopId" type="java.lang.Integer">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="integrationPassword" type="java.lang.String">
+					<persistence type="property"/>
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<itemtype code="PaazlWidgetParameters" extends="GenericItem">
+			<deployment table="paazlWidgetParameters" typecode="14001"/>
+			<attributes>
+				<attribute qualifier="code" type="java.lang.String">
+					<persistence type="property"/>
+					<modifiers unique="true" optional="false" initial="true"/>
+				</attribute>
+				<attribute qualifier="loadPaazlBasedData" type="java.lang.Boolean">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="loadCarrierBasedData" type="java.lang.Boolean">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="availableTabs" type="StringSet">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="defaultTab" type="java.lang.String">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="headerTabType" type="StringSet">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="style" type="java.lang.String">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="nominatedDateEnabled" type="java.lang.Boolean">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="numberOfProcessingDays" type="java.lang.Integer">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="tags" type="StringSet">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="deliveryDateOptionsNumberOfDays" type="java.lang.Integer">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="isPricingEnabled" type="java.lang.Boolean">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="isShowAsExtraCost" type="java.lang.Boolean">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="deliveryRangeFormat" type="java.lang.String">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="deliveryOptionDateFormat" type="java.lang.String">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="deliveryEstimateDateFormat" type="java.lang.String">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="pickupOptionDateFormat" type="java.lang.String">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="pickupEstimateDateFormat" type="java.lang.String">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="sortingModelOrderBy" type="java.lang.String">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="sortingModelSortOrder" type="java.lang.String">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="sortingModelDistributor" type="java.lang.String">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="shippingOptionsLimit" type="java.lang.Integer">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="pickupLocationsPageLimit" type="java.lang.Integer">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="pickupLocationsLimit" type="java.lang.Integer">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="initialPickupLocations" type="java.lang.Integer">
+					<persistence type="property"/>
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<itemtype code="BaseStoreConfiguration" extends="GenericItem" autocreate="true" generate="true"><!--extends="GenericItem" autocreate="false" generate="false"-->
+			<!---->
+			<deployment table="ltbBaseStoreConfig" typecode="30193"/>
+			<!---->
+			<attributes>
+				<!---->
+				<attribute qualifier="uid" type="java.lang.String">
+					<persistence type="property"/>
+					<modifiers unique="true"/>
+				</attribute>
+				<!---->
+				<attribute qualifier="paazlConfiguration" type="PaazlConfiguration">
+					<persistence type="property"/>
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<itemtype code="AbstractOrder" autocreate="false" generate="false">
+			<attributes>
+				<attribute qualifier="paazlToken" type="java.lang.String">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="paazlTokenExpirationDate" type="java.util.Date">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="paazlGetCheckoutRequestLog" type="RequestLog">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="paazlDeliveryCost" type="java.lang.Double">
+					<persistence type="property"/>
+					<model>
+						<getter name="paazlDeliveryCost" default="true">
+							<nullDecorator>Double.valueOf(0.0d)</nullDecorator>
+						</getter>
+					</model>
+				</attribute>
+				<attribute qualifier="carrier" type="java.lang.String">
+					<persistence type="property"/>
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<itemtype code="Order" autocreate="false" generate="false">
+			<attributes>
+				<attribute qualifier="paazlOrderRequestLogs" type="RequestLogList">
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="paazlOrderShipmentsRequestLogs" type="RequestLogList">
+					<persistence type="property"/>
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<itemtype code="Country" autocreate="false" generate="false">
+			<attributes>
+				<attribute qualifier="phonePrefix" type="java.lang.String">
+					<persistence type="property"/>
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<itemtype code="PaazlShipmentRequestParameters" extends="GenericItem">
+			<deployment table="shipmentRequestParams" typecode="14003"/>
+			<attributes>
+				<attribute qualifier="code" type="java.lang.String">
+					<persistence type="property"/>
+					<modifiers unique="true" optional="false" initial="true"/>
+				</attribute>
+				<attribute qualifier="type" type="java.lang.String">
+					<description>ZPL/PDF/PNG</description>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="size" type="java.lang.String">
+					<description>10x15/10x21/laser/a4</description>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="quantity" type="java.lang.Integer">
+					<description>optional. If quantity == 1 -> it's extra label</description>
+					<persistence type="property"/>
+				</attribute>
+			</attributes>
+		</itemtype>
+
 	</itemtypes>
 </items>

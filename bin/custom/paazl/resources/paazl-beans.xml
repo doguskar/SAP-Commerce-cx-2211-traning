@@ -1,62 +1,243 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<!--
- Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
--->
-<!--
-	ATTENTION: This is just an example file. You have to edit it according to your needs.
--->
-
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
 
-	<!--
-		Example Data POJO
-	
-	<bean class="com.paazl.data.AbstractPojo" abstract="true">
-		<property name="id" type="String"/>
-		<property name="flag" type="boolean"/>
-	</bean>
+    <enum class="de.hybris.platform.acceleratorservices.controllers.page.PageType">
+        <value>Checkout</value>
+    </enum>
+    <enum class="com.paazl.data.DeliveryType">
+        <value>PICKUP_LOCATION</value>
+        <value>HOME</value>
+    </enum>
 
-	<bean class="com.paazl.data.MyPojo" extends="com.paazl.data.AbstractPojo">
-		<property name="message" type="String"/>
-	</bean>
-
-	<bean class="com.paazl.data.AnnotatedPojo">
-
-		<import type="javax.xml.bind.annotation.XmlRootElement"/>
-		<import type="javax.xml.bind.annotation.XmlElements"/>
-		<import type="javax.xml.bind.annotation.XmlElement"/>
-
-		<annotations>@XmlRootElement</annotations>
-		
-		<property name="someText" type="String">
-
-			<annotations scope="getter">
-			@XmlElements(value = {
-					@XmlElement(name="map",
-						type=ValueAsMap.class),
-					@XmlElement(name="string",
-						type=ValueAsString.class)
-			})
-			</annotations>
-
-		</property>
-
-	</bean>
-
-    <bean  class="de.hybris.platform.catalog.data.Equals1">
-    	<property name="a1" type="boolean" equals="true"/>
-    	<property name="a2" type="int" equals="true"/>
-    	<property name="a3" type="String" equals="true"/>
-    	<property name="a4" type="de.hybris.platform.catalog.data.AbstractValue" equals="true"/>
-    	<property name="not4Equals" type="java.lang.Double"/>
+    <bean class="com.paazl.data.PaazlCheckoutInitializationData">
+        <import type="com.fasterxml.jackson.annotation.JsonInclude"/>
+        <annotations scope="member">@JsonInclude(JsonInclude.Include.NON_EMPTY)</annotations>
+        <property name="mountElementId" type="java.lang.String"/>
+        <property name="apiKey" type="java.lang.String"/>
+        <property name="token" type="java.lang.String"/>
+        <property name="loadPaazlBasedData" type="java.lang.Boolean"/>
+        <property name="loadCarrierBasedData" type="java.lang.Boolean"/>
+        <property name="availableTabs" type="java.util.Set&lt;java.lang.String>"/>
+        <property name="defaultTab" type="java.lang.String"/>
+        <property name="headerTabType" type="java.util.Set&lt;java.lang.String>"/>
+        <property name="style" type="java.lang.String"/>
+        <property name="nominatedDateEnabled" type="java.lang.Boolean"/>
+        <property name="consigneeCountryCode" type="java.lang.String"/>
+        <property name="consignorCountryCode" type="java.lang.String"/>
+        <property name="consigneePostalCode" type="java.lang.String"/>
+        <property name="consignorPostalCode" type="java.lang.String"/>
+        <property name="customerNumber" type="java.lang.Integer"/>
+        <property name="numberOfProcessingDays" type="java.lang.Integer"/>
+        <property name="tags" type="java.util.Set&lt;java.lang.String>"/>
+        <property name="deliveryDateOptions" type="com.paazl.data.DeliveryDateOptionsData"/>
+        <property name="language" type="java.lang.String"/>
+        <property name="currency" type="java.lang.String"/>
+        <property name="isPricingEnabled" type="java.lang.Boolean"/>
+        <property name="isShowAsExtraCost" type="java.lang.Boolean"/>
+        <property name="deliveryRangeFormat" type="java.lang.String"/>
+        <property name="deliveryOptionDateFormat" type="java.lang.String"/>
+        <property name="deliveryEstimateDateFormat" type="java.lang.String"/>
+        <property name="pickupOptionDateFormat" type="java.lang.String"/>
+        <property name="pickupEstimateDateFormat" type="java.lang.String"/>
+        <property name="sortingModel" type="com.paazl.data.SortingModelData"/>
+        <property name="shipmentParameters" type="com.paazl.data.ShipmentParametersData"/>
+        <property name="shippingOptionsLimit" type="java.lang.Integer"/>
+        <property name="pickupLocationsPageLimit" type="java.lang.Integer"/>
+        <property name="pickupLocationsLimit" type="java.lang.Integer"/>
+        <property name="initialPickupLocations" type="java.lang.Integer"/>
     </bean>
 
-    <bean class="de.hybris.platform.catalog.data.Equals2" extends="de.hybris.platform.catalog.data.Equals1" superEquals="true">
-    	<property name="a5" type="java.lang.Integer" equals="true"/>
-    	<property name="a6" type="java.util.List" equals="true"/>
-    	<property name="not4Equals" type="java.lang.Double"/>
+    <bean class="com.paazl.data.DeliveryDateOptionsData">
+        <import type="com.fasterxml.jackson.annotation.JsonInclude"/>
+        <annotations scope="member">@JsonInclude(JsonInclude.Include.NON_EMPTY)</annotations>
+        <property name="startDate" type="java.lang.String"/>
+        <property name="numberOfDays" type="java.lang.Integer"/>
     </bean>
 
-	-->
+    <bean class="com.paazl.data.SortingModelData">
+        <import type="com.fasterxml.jackson.annotation.JsonInclude"/>
+        <annotations scope="member">@JsonInclude(JsonInclude.Include.NON_EMPTY)</annotations>
+        <property name="orderBy" type="java.lang.String"/>
+        <property name="sortOrder" type="java.lang.String"/>
+        <property name="distributor" type="java.lang.String"/>
+    </bean>
+
+    <bean class="com.paazl.data.ShipmentParametersData">
+        <import type="com.fasterxml.jackson.annotation.JsonInclude"/>
+        <annotations scope="member">@JsonInclude(JsonInclude.Include.NON_EMPTY)</annotations>
+        <property name="totalWeight" type="java.lang.Double"/>
+        <property name="totalVolume" type="java.lang.Double"/>
+        <property name="totalPrice" type="java.lang.Double"/>
+        <property name="numberOfGoods" type="java.lang.Integer"/>
+        <property name="startMatrix" type="java.lang.String"/>
+        <property name="goods" type="java.util.List&lt;com.paazl.data.GoodData>"/>
+    </bean>
+
+    <bean class="com.paazl.data.GoodData">
+        <import type="com.fasterxml.jackson.annotation.JsonInclude"/>
+        <annotations scope="member">@JsonInclude(JsonInclude.Include.NON_EMPTY)</annotations>
+        <property name="quantity" type="java.lang.Integer"/>
+        <property name="weight" type="java.lang.Double"/>
+        <property name="length" type="java.lang.Double"/>
+        <property name="width" type="java.lang.Double"/>
+        <property name="height" type="java.lang.Double"/>
+        <property name="volume" type="java.lang.Double"/>
+        <property name="price" type="java.lang.Double"/>
+    </bean>
+
+    <bean class="com.paazl.data.PickupLocationData">
+        <import type="com.fasterxml.jackson.annotation.JsonInclude"/>
+        <annotations scope="member">@JsonInclude(JsonInclude.Include.NON_EMPTY)</annotations>
+        <property name="accountNumber" type="java.lang.String"/>
+        <property name="address" type="com.paazl.data.AddressData"/>
+        <property name="code" type="java.lang.String"/>
+        <property name="coordinates" type="com.paazl.data.CoordinatesData"/>
+        <property name="distance" type="java.lang.Double"/>
+        <property name="name" type="java.lang.String"/>
+        <property name="openingTimes" type="java.util.List&lt;com.paazl.data.DpeningTimeData>"/>
+    </bean>
+
+    <bean class="com.paazl.data.AddressData">
+        <property name="city" type="java.lang.String"/>
+        <property name="country" type="java.lang.String"/>
+        <property name="postalCode" type="java.lang.String"/>
+        <property name="province" type="java.lang.String"/>
+        <property name="street" type="java.lang.String"/>
+        <property name="streetNumber" type="java.lang.Integer"/>
+        <property name="streetNumberSuffix" type="java.lang.String"/>
+    </bean>
+
+    <bean class="com.paazl.data.CoordinatesData">
+        <property name="latitude" type="java.lang.Double"/>
+        <property name="longitude" type="java.lang.Double"/>
+    </bean>
+
+    <bean class="com.paazl.data.DpeningTimeData">
+        <property name="alwaysOpen" type="java.lang.Boolean"/>
+        <property name="businessHours" type="java.util.List&lt;com.paazl.data.BusinessHourData>"/>
+        <property name="day" type="java.lang.String"/>
+    </bean>
+
+    <bean class="com.paazl.data.BusinessHourData">
+        <property name="from" type="java.lang.String"/>
+        <property name="to" type="java.lang.String"/>
+    </bean>
+
+    <bean class="com.paazl.data.ShippingOptionData">
+        <import type="com.fasterxml.jackson.annotation.JsonInclude"/>
+        <annotations scope="member">@JsonInclude(JsonInclude.Include.NON_EMPTY)</annotations>
+        <property name="carrier" type="com.paazl.data.CarrierData"/>
+        <property name="deliveryDates" type="java.util.List&lt;com.paazl.data.DeliveryDateData>"/>
+        <property name="deliveryWindow" type="com.paazl.data.DeliveryWindowData"/>
+        <property name="description" type="java.lang.String"/>
+        <property name="estimatedDeliveryRange" type="com.paazl.data.EstimatedDeliveryRangeData"/>
+        <property name="identifier" type="java.lang.String"/>
+        <property name="name" type="java.lang.String"/>
+        <property name="rate" type="java.lang.Double"/>
+        <property name="tags" type="java.util.List&lt;java.lang.String>"/>
+    </bean>
+
+    <bean class="com.paazl.data.CarrierData">
+        <property name="description" type="java.lang.String"/>
+        <property name="name" type="java.lang.String"/>
+    </bean>
+
+    <bean class="com.paazl.data.DeliveryDateData">
+        <property name="deliveryDate" type="java.lang.String"/>
+        <property name="pickupDate" type="java.lang.String"/>
+        <property name="cutoffTime" type="java.lang.String"/>
+        <property name="timeRange" type="com.paazl.data.TimeRangeData"/>
+    </bean>
+
+    <bean class="com.paazl.data.TimeRangeData">
+        <property name="end" type="java.lang.String"/>
+        <property name="start" type="java.lang.String"/>
+    </bean>
+
+    <bean class="com.paazl.data.DeliveryWindowData">
+        <property name="end" type="java.lang.String"/>
+        <property name="start" type="java.lang.String"/>
+    </bean>
+
+    <bean class="com.paazl.data.EstimatedDeliveryRangeData">
+        <property name="earliestDate" type="java.lang.String"/>
+        <property name="latestDate" type="java.lang.String"/>
+        <property name="max" type="java.lang.Integer"/>
+        <property name="min" type="java.lang.Integer"/>
+    </bean>
+
+    <bean class="com.paazl.data.ContactData">
+        <property name="companyName" type="java.lang.String"/>
+        <property name="vatNumber" type="java.lang.String"/>
+        <property name="email" type="java.lang.String"/>
+        <property name="name" type="java.lang.String"/>
+        <property name="other" type="java.lang.String"/>
+        <property name="phone" type="java.lang.String"/>
+        <property name="locale" type="java.lang.String"/>
+        <property name="address" type="com.paazl.data.ShopOrderAddressData"/>
+    </bean>
+
+    <bean class="com.paazl.data.ShopOrderAddressData">
+        <property name="city" type="java.lang.String"/>
+        <property name="country" type="java.lang.String"/>
+        <property name="postalCode" type="java.lang.String"/>
+        <property name="province" type="java.lang.String"/>
+        <property name="street" type="java.lang.String"/>
+        <property name="streetLines" type="java.util.List&lt;java.lang.String>"/>
+        <property name="houseNumber" type="java.lang.Integer"/>
+        <property name="houseNumberExtension" type="java.lang.String"/>
+    </bean>
+
+    <bean class="com.paazl.data.MoneyValueData">
+        <property name="value" type="java.lang.Double"/>
+        <property name="currency" type="java.lang.String"/>
+    </bean>
+
+    <bean class="com.paazl.data.ProductData">
+        <property name="height" type="java.lang.Integer"/>
+        <property name="length" type="java.lang.Integer"/>
+        <property name="unitPrice" type="com.paazl.data.MoneyValueData"/>
+        <property name="quantity" type="java.lang.Integer"/>
+        <property name="volume" type="java.lang.Float"/>
+        <property name="weight" type="java.lang.Double"/>
+        <property name="width" type="java.lang.Integer"/>
+        <property name="countryOfManufacture" type="java.lang.String"/>
+        <property name="description" type="java.lang.String"/>
+        <property name="hsTariffCode" type="java.lang.String"/>
+        <property name="skuCode" type="java.lang.String"/>
+    </bean>
+
+    <bean class="com.paazl.data.ShopOrderPartyData">
+        <property name="name" type="java.lang.String"/>
+        <property name="address" type="com.paazl.data.ShopOrderAddressData"/>
+    </bean>
+
+    <bean class="com.paazl.data.ShopOrderShippingData">
+        <property name="option" type="java.lang.String"/>
+        <property name="pickupLocation" type="com.paazl.data.ShopOrderPickupLocationData"/>
+        <property name="contract" type="java.lang.String"/>
+        <property name="returnContract" type="java.lang.String"/>
+        <property name="packageCount" type="java.lang.Integer"/>
+        <property name="multiPackageShipment" type="java.lang.Boolean"/>
+    </bean>
+
+    <bean class="com.paazl.data.ShopOrderPickupLocationData">
+        <property name="accountNumber" type="java.lang.String"/>
+        <property name="code" type="java.lang.String"/>
+    </bean>
+
+    <bean class="com.paazl.data.ShipmentData">
+        <property name="description" type="java.lang.String"/>
+        <property name="trackingNumber" type="java.lang.String"/>
+        <property name="trackingUrl" type="java.lang.String"/>
+        <property name="labelUrl" type="java.lang.String"/>
+        <property name="parcels" type="java.util.List&lt;com.paazl.data.ParcelData>"/>
+    </bean>
+
+    <bean class="com.paazl.data.ParcelData">
+        <property name="barcode" type="java.lang.String"/>
+        <property name="trackingUrl" type="java.lang.String"/>
+        <property name="labelUrl" type="java.lang.String"/>
+    </bean>
 
 </beans>

@@ -19,15 +19,15 @@ public interface IRestCommand<REQUEST extends IRequest, RESPONSE> {
 
     String getUri() throws RestCommandException;
 
-    String getBaseUrl();
+    String getBaseUrl() throws RestCommandException;
 
-    String getPath();
+    String getPath() throws RestCommandException;
 
     HttpMethod getMethod();
 
     Class<? extends ISaveRequestLogCommand> getSaveRequestLogCommand();
 
-    ItemModel getSaveRequestLogCommandItem();
+    ItemModel getSaveRequestLogCommandItem(REQUEST request);
 
     boolean isPersistent(REQUEST request);
 }

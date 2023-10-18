@@ -1,20 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
- Copyright (c) 2021 SAP SE or an SAP affiliate company. All rights reserved.
--->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:aop="http://www.springframework.org/schema/aop"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
-           http://www.springframework.org/schema/beans/spring-beans.xsd
-           http://www.springframework.org/schema/aop
-           http://www.springframework.org/schema/aop/spring-aop.xsd">
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:util="http://www.springframework.org/schema/util"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
-	
-    <!--<bean id="paazlSystemSetup" class="com.paazl.setup.PaazlSystemSetup">
-        &lt;!&ndash; constructor arg injection example &ndash;&gt;
-        <constructor-arg ref="paazlService"/>
-    </bean>-->
+	<bean class="com.rest.integration.util.factory.impl.DefaultIFactory">
+		<property name="key" value="paazlRestCommandFactory"/>
+		<property name="map">
+			<map>
+				<entry>
+					<key><value type="java.lang.Class">com.paazl.command.PostCheckoutTokenCommand</value></key>
+					<bean class="com.paazl.command.impl.DefaultPostCheckoutTokenCommand" parent="restBaseCommand"></bean>
+				</entry>
+				<entry>
+					<key><value type="java.lang.Class">com.paazl.command.GetCheckoutCommand</value></key>
+					<bean class="com.paazl.command.impl.DefaultGetCheckoutCommand" parent="restBaseCommand"></bean>
+				</entry>
+				<entry>
+					<key><value type="java.lang.Class">com.paazl.command.PostCheckoutCommand</value></key>
+					<bean class="com.paazl.command.impl.DefaultPostCheckoutCommand" parent="restBaseCommand"></bean>
+				</entry>
+				<entry>
+					<key><value type="java.lang.Class">com.paazl.command.PostOrderCommand</value></key>
+					<bean class="com.paazl.command.impl.DefaultPostOrderCommand" parent="restBaseCommand"></bean>
+				</entry>
+				<entry>
+					<key><value type="java.lang.Class">com.paazl.command.PutOrderCommand</value></key>
+					<bean class="com.paazl.command.impl.DefaultPutOrderCommand" parent="restBaseCommand"></bean>
+				</entry>
+				<entry>
+					<key><value type="java.lang.Class">com.paazl.command.PostOrderShipmentsCommand</value></key>
+					<bean class="com.paazl.command.impl.DefaultPostOrderShipmentsCommand" parent="restBaseCommand"></bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
 
-			
+	<bean id="restBaseCommand" abstract="true" class="com.paazl.command.impl.AbstractPaazlRestCommand"/>
+
+	<bean  name="paazlGetCheckoutRequestLogSaveCommand" class="com.paazl.command.requestlog.impl.PaazlGetCheckoutRequestLogSaveCommand"
+		   parent="abstractSaveRequestLogCommand"/>
+	<bean  name="paazlOrderRequestLogsSaveCommand" class="com.paazl.command.requestlog.impl.PaazlOrderRequestLogsSaveCommand"
+		   parent="abstractSaveRequestLogCommand"/>
+	<bean  name="paazlOrderShipmentsRequestLogsSaveCommand" class="com.paazl.command.requestlog.impl.PaazlOrderShipmentsRequestLogsSaveCommand"
+		   parent="abstractSaveRequestLogCommand"/>
+
+	<bean depends-on="saveRequestLogCommandMap" parent="mapMergeDirective">
+		<property name="sourceMap">
+			<map>
+				<entry key="com.paazl.command.requestlog.impl.PaazlGetCheckoutRequestLogSaveCommand" value-ref="paazlGetCheckoutRequestLogSaveCommand"/>
+				<entry key="com.paazl.command.requestlog.impl.PaazlOrderRequestLogsSaveCommand" value-ref="paazlOrderRequestLogsSaveCommand"/>
+				<entry key="com.paazl.command.requestlog.impl.PaazlOrderShipmentsRequestLogsSaveCommand" value-ref="paazlOrderShipmentsRequestLogsSaveCommand"/>
+			</map>
+		</property>
+	</bean>
+
+	<alias name="defaultPaazlService" alias="paazlService"/>
+	<bean id="defaultPaazlService" class="com.paazl.service.impl.DefaultPaazlService"/>
+
+	<alias name="defaultPaazlFacade" alias="paazlFacade"/>
+	<bean id="defaultPaazlFacade" class="com.paazl.facede.impl.DefaultPaazlFacade"/>
+
+	<alias name="defaultPaazlCheckoutInitializationConverter" alias="paazlCheckoutInitializationConverter"/>
+	<bean id="defaultPaazlCheckoutInitializationConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.paazl.data.PaazlCheckoutInitializationData"/>
+		<property name="populators"><list><ref bean="paazlCheckoutInitializationPopulator" /></list></property>
+	</bean>
+
+	<bean id="paazlCheckoutInitializationPopulator" class="com.paazl.populator.PaazlCheckoutInitializationPopulator"/>
+
+	<alias name="defaultPaazlContactConverter" alias="paazlContactConverter"/>
+	<bean id="defaultPaazlContactConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.paazl.data.ContactData"/>
+		<property name="populators"><list><ref bean="paazlContactPopulator" /></list></property>
+	</bean>
+
+	<bean id="paazlContactPopulator" class="com.paazl.populator.PaazlContactPopulator"/>
+
+	<alias name="defaultPaazlShopOrderAddressConverter" alias="paazlShopOrderAddressConverter"/>
+	<bean id="defaultPaazlShopOrderAddressConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.paazl.data.ShopOrderAddressData"/>
+		<property name="populators"><list><ref bean="paazlShopOrderAddressPopulator" /></list></property>
+	</bean>
+
+	<bean id="paazlShopOrderAddressPopulator" class="com.paazl.populator.PaazlShopOrderAddressPopulator"/>
+
+	<alias name="defaultPaazlProductConverter" alias="paazlProductConverter"/>
+	<bean id="defaultPaazlProductConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.paazl.data.ProductData"/>
+		<property name="populators"><list><ref bean="paazlProductPopulator" /></list></property>
+	</bean>
+
+	<bean id="paazlProductPopulator" class="com.paazl.populator.ProductPopulator"/>
+
+	<alias name="defaultPaazlOrderService" alias="paazlOrderService"/>
+	<bean id="defaultPaazlOrderService" class="com.paazl.soap.generated.OrderServiceLocator"/>
+
 </beans>
