@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<config xmlns="http://www.hybris.com/cockpit/config"
+        xmlns:na="http://www.hybris.com/cockpitng/config/notifications"
+        xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea"
+        xmlns:list-view="http://www.hybris.com/cockpitng/component/listView"
+        xmlns:y="http://www.hybris.com/cockpit/config/hybris"
+        xmlns:as="http://www.hybris.com/cockpitng/config/advancedsearch"
+        xmlns:yss="http://www.hybris.com/cockpitng/config/simplesearch"
+        xmlns:n="http://www.hybris.com/cockpitng/config/explorertree"
+        xmlns:list="http://www.hybris.com/cockpitng/component/listView"
+        xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch"
+        xmlns:p="http://www.hybris.com/cockpitng/config/perspectiveChooser"
+        xmlns:wz="http://www.hybris.com/cockpitng/config/wizard-config">
+
+    <context merge-by="type" parent="GenericItem" type="PaazlConfiguration" component="base">
+        <y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+            <y:labels>
+                <y:label>code</y:label>
+            </y:labels>
+        </y:base>
+    </context>
+    <context merge-by="type" type="PaazlConfiguration" parent="GenericItem" component="editor-area">
+        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+            <editorArea:essentials>
+                <editorArea:essentialSection name="hmc.essential">
+                    <editorArea:attribute qualifier="code"/>
+                </editorArea:essentialSection>
+            </editorArea:essentials>
+            <editorArea:tab name="ltb.tab">
+                <editorArea:section name="hmc.sec.basic" position="0">
+                    <editorArea:attribute qualifier="baseUrl"/>
+                    <editorArea:attribute qualifier="checkoutJsSrc"/>
+                    <editorArea:attribute qualifier="apiKey"/>
+                    <editorArea:attribute qualifier="apiSecret"/>
+                    <editorArea:attribute qualifier="webshopId"/>
+                    <editorArea:attribute qualifier="integrationPassword"/>
+                    <editorArea:attribute qualifier="codPaymentModes"/>
+                    <editorArea:attribute qualifier="supportedLanguages"/>
+                    <editorArea:attribute qualifier="paazlWidgetParameters"/>
+                    <editorArea:attribute qualifier="shipmentRequestParameters"/>
+                    <editorArea:attribute qualifier="contract"/>
+                    <editorArea:attribute qualifier="returnContract"/>
+                    <editorArea:attribute qualifier="multiPackageShipment"/>
+                    <editorArea:attribute qualifier="deliveryMode"/>
+                </editorArea:section>
+                <editorArea:section name="hmc.sec.path" position="1">
+                    <editorArea:attribute qualifier="checkoutTokenPath"/>
+                    <editorArea:attribute qualifier="checkoutPath"/>
+                    <editorArea:attribute qualifier="orderPath"/>
+                    <editorArea:attribute qualifier="orderShipmentsPath"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+    <context merge-by="type" parent="GenericItem" type="PaazlWidgetParameters" component="base">
+        <y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+            <y:labels>
+                <y:label>code</y:label>
+            </y:labels>
+        </y:base>
+    </context>
+    <context merge-by="type" type="PaazlWidgetParameters" parent="GenericItem" component="editor-area">
+        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+            <editorArea:essentials>
+                <editorArea:essentialSection name="hmc.essential">
+                    <editorArea:attribute qualifier="code"/>
+                </editorArea:essentialSection>
+            </editorArea:essentials>
+            <editorArea:tab name="ltb.tab">
+                <editorArea:section name="hmc.sec.basic" position="0">
+                    <editorArea:attribute qualifier="loadPaazlBasedData"/>
+                    <editorArea:attribute qualifier="loadCarrierBasedData"/>
+                    <editorArea:attribute qualifier="availableTabs"/>
+                    <editorArea:attribute qualifier="defaultTab"/>
+                    <editorArea:attribute qualifier="headerTabType"/>
+                    <editorArea:attribute qualifier="style"/>
+                    <editorArea:attribute qualifier="nominatedDateEnabled"/>
+                    <editorArea:attribute qualifier="numberOfProcessingDays"/>
+                    <editorArea:attribute qualifier="tags"/>
+                    <editorArea:attribute qualifier="deliveryDateOptionsNumberOfDays"/>
+                    <editorArea:attribute qualifier="isPricingEnabled"/>
+                    <editorArea:attribute qualifier="isShowAsExtraCost"/>
+                    <editorArea:attribute qualifier="deliveryRangeFormat"/>
+                    <editorArea:attribute qualifier="deliveryOptionDateFormat"/>
+                    <editorArea:attribute qualifier="deliveryEstimateDateFormat"/>
+                    <editorArea:attribute qualifier="pickupOptionDateFormat"/>
+                    <editorArea:attribute qualifier="pickupEstimateDateFormat"/>
+                    <editorArea:attribute qualifier="sortingModelOrderBy"/>
+                    <editorArea:attribute qualifier="sortingModelSortOrder"/>
+                    <editorArea:attribute qualifier="sortingModelDistributor"/>
+                    <editorArea:attribute qualifier="shippingOptionsLimit"/>
+                    <editorArea:attribute qualifier="pickupLocationsPageLimit"/>
+                    <editorArea:attribute qualifier="pickupLocationsLimit"/>
+                    <editorArea:attribute qualifier="initialPickupLocations"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+    <context merge-by="type" parent="GenericItem" type="PaazlShipmentRequestParameters" component="base">
+        <y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+            <y:labels>
+                <y:label>code</y:label>
+            </y:labels>
+        </y:base>
+    </context>
+    <context merge-by="type" type="PaazlShipmentRequestParameters" parent="GenericItem" component="editor-area">
+        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+            <editorArea:essentials>
+                <editorArea:essentialSection name="hmc.essential">
+                    <editorArea:attribute qualifier="code"/>
+                </editorArea:essentialSection>
+            </editorArea:essentials>
+            <editorArea:tab name="ltb.tab">
+                <editorArea:section name="hmc.sec.basic" position="0">
+                    <editorArea:attribute qualifier="type"/>
+                    <editorArea:attribute qualifier="size"/>
+                    <editorArea:attribute qualifier="quantity"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+    <context merge-by="type" type="AbstractOrder" parent="GenericItem" component="editor-area">
+        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+            <editorArea:tab name="hmc.payment_and_delivery">
+                <editorArea:section name="hmc.sec.paazl">
+                    <editorArea:attribute qualifier="paazlToken"/>
+                    <editorArea:attribute qualifier="paazlTokenExpirationDate"/>
+                    <editorArea:attribute qualifier="paazlGetCheckoutRequestLog"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+    <context merge-by="type" type="Order" parent="GenericItem" component="editor-area">
+        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+            <editorArea:tab name="hmc.payment_and_delivery">
+                <editorArea:section name="hmc.sec.paazl">
+                    <editorArea:attribute qualifier="carrier"/>
+                    <editorArea:attribute qualifier="paazlDeliveryCost"/>
+                    <editorArea:attribute qualifier="paazlGetCheckoutRequestLog"/>
+                    <editorArea:attribute qualifier="paazlToken"/>
+                    <editorArea:attribute qualifier="paazlTokenExpirationDate"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+    <context merge-by="type" type="BaseStoreConfiguration" parent="GenericItem" component="editor-area">
+        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+            <editorArea:tab name="ltb.tab">
+                <editorArea:section name="hmc.sec.config" position="0">
+                    <editorArea:attribute qualifier="paazlConfiguration"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+</config>
+
+
