@@ -85,6 +85,7 @@ public class DefaultPaazlService implements PaazlService {
             try {
                 IFactory<PostCheckoutTokenCommand> commandIFactory = iFactoryRegistry.getFactory(PaazlConstants.PAAZL_REST_COMMAND_FACTORY_KEY);
                 PostCheckoutTokenCommand command = commandIFactory.create(PostCheckoutTokenCommand.class);
+                command.setBaseStore(baseStore);
                 final PostCheckoutTokenRequest request = command.createRequest();
                 request.setReference(order.getCode());
                 request.setApiKey(paazlConfiguration.getApiKey());
@@ -119,6 +120,7 @@ public class DefaultPaazlService implements PaazlService {
             try {
                 IFactory<GetCheckoutCommand> commandIFactory = iFactoryRegistry.getFactory(PaazlConstants.PAAZL_REST_COMMAND_FACTORY_KEY);
                 GetCheckoutCommand command = commandIFactory.create(GetCheckoutCommand.class);
+                command.setBaseStore(baseStore);
                 final GetCheckoutRequest request = command.createRequest();
                 request.setReference(order.getCode());
                 request.setApiKey(paazlConfiguration.getApiKey());
@@ -141,6 +143,7 @@ public class DefaultPaazlService implements PaazlService {
             try {
                 IFactory<PostCheckoutCommand> commandIFactory = iFactoryRegistry.getFactory(PaazlConstants.PAAZL_REST_COMMAND_FACTORY_KEY);
                 PostCheckoutCommand command = commandIFactory.create(PostCheckoutCommand.class);
+                command.setBaseStore(baseStore);
                 final PostCheckoutRequest request = command.createRequest();
                 request.setApiKey(paazlConfiguration.getApiKey());
                 request.setToken(getCheckoutResponse.getToken());
@@ -318,6 +321,7 @@ public class DefaultPaazlService implements PaazlService {
                 try {
                     IFactory<PutOrderCommand> commandIFactory = iFactoryRegistry.getFactory(PaazlConstants.PAAZL_REST_COMMAND_FACTORY_KEY);
                     PutOrderCommand command = commandIFactory.create(PutOrderCommand.class);
+                    command.setBaseStore(baseStore);
                     final PutOrderRequest request = (PutOrderRequest) populatePostOrderRequest(command.createRequest(), order, paazlConfiguration, getCheckoutResponse);
                     return command.perform(request);
                 } catch (RestCommandException | NotSupportedException e) {
@@ -341,6 +345,7 @@ public class DefaultPaazlService implements PaazlService {
                 try {
                     IFactory<PostOrderShipmentsCommand> commandIFactory = iFactoryRegistry.getFactory(PaazlConstants.PAAZL_REST_COMMAND_FACTORY_KEY);
                     PostOrderShipmentsCommand command = commandIFactory.create(PostOrderShipmentsCommand.class);
+                    command.setBaseStore(baseStore);
                     final PostOrderShipmentsRequest request = command.createRequest();
                     Map<String, String> pathVariables = new HashMap<>();
                     pathVariables.put(PaazlConstants.ORDER_REFERENCE_VARIABLE, order.getCode());

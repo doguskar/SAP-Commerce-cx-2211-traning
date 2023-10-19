@@ -1,0 +1,48 @@
+$paazlCfg-code=paazl-cfg
+#Online
+#$paazlCfg-baseUrl=https://api.paazl.com
+#Stage
+#$paazlCfg-baseUrl=https://api-acc.paazl.com
+$paazlCfg-baseUrl=https://073f81da-ba7a-42f4-ace3-045674529ad8.mock.pstmn.io
+#Online
+#$paazlCfg-checkoutJsSrc=https://widget.paazl.com/v1/checkout.js
+#Stage
+$paazlCfg-checkoutJsSrc=https://widget-acc.paazl.com/v1/checkout.js
+$paazlCfg-apiKey=ApiKey
+$paazlCfg-apiSecret=ApiSecret
+$paazlCfg-checkoutTokenPath=/v1/checkout/token
+$paazlCfg-checkoutPath=/v1/checkout
+$paazlCfg-orderPath=/v1/order
+$paazlCfg-supportedLanguages=en, eng, de, deu, ger, nl, nld, pl, pol, zh, zho, chi, fr, fra, it, ita, ja, jpn, es, spa, pt, por
+$paazlCfg-codPaymentModes=
+$paazlCfg-orderShipmentsPath=/v1/orders/{order_reference}/shipments
+$paazlCfg-webshopId=001
+$paazlCfg-integrationPassword=IntegrationPassword
+$paazlCfg-deliveryMode=paazl
+
+$paazlCfgSrParam-code=paazl-cfg-sr-param
+
+INSERT_UPDATE ZoneDeliveryMode; code[unique = true]; name; net; active[default = true];
+; paazl ; PAAZL ; false ; true ;
+
+INSERT_UPDATE PaazlShipmentRequestParameters; code[unique = true]; type; size;
+; $paazlCfgSrParam-code ; PNG ; 10x15 ;
+
+INSERT_UPDATE PaazlConfiguration; code[unique = true]; baseUrl; checkoutJsSrc; apiKey; apiSecret; checkoutTokenPath; checkoutPath; orderPath; supportedLanguages; codPaymentModes(code); orderShipmentsPath; shipmentRequestParameters(code); webshopId; integrationPassword
+; $paazlCfg-code ; $paazlCfg-baseUrl ; $paazlCfg-checkoutJsSrc ; $paazlCfg-apiKey ; $paazlCfg-apiSecret ; $paazlCfg-checkoutTokenPath ; $paazlCfg-checkoutPath ; $paazlCfg-orderPath ; $paazlCfg-supportedLanguages ; $paazlCfg-codPaymentModes ; $paazlCfg-orderShipmentsPath ; $paazlCfgSrParam-code ; $paazlCfg-webshopId ; $paazlCfg-integrationPassword
+
+$bsCfg-uid=configuration
+INSERT_UPDATE BaseStoreConfiguration; uid[unique = true]; paazlConfiguration(code);
+; $bsCfg-uid ; $paazlCfg-code
+
+INSERT_UPDATE Country; isocode[unique = true]; phonePrefix;
+; TR ; +90 ;
+; NL ; +31 ;
+; BE ; +32 ;
+; DE ; +49 ;
+; ES ; +34 ;
+; FR ; +33 ;
+; IT ; +39 ;
+
+
+

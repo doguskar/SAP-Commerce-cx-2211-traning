@@ -42,6 +42,7 @@ import java.util.*;
 
 public abstract class AbstractRestCommand<REQUEST extends IRequest, RESPONSE> implements IRestCommand<REQUEST, RESPONSE> {
     private static final Logger LOG = LoggerFactory.getLogger(AbstractRestCommand.class);
+    private static final String NULL_BODY = "{}";
     @Resource
     private ModelService modelService;
     @Resource(name = "restCommandObjectMapper")
@@ -216,7 +217,7 @@ public abstract class AbstractRestCommand<REQUEST extends IRequest, RESPONSE> im
             ObjectWriter writer = mapper.writer();
             data = writer.writeValueAsString(request);
         }
-        if (StringUtils.isNotBlank(data)) {
+        if (StringUtils.isNotBlank(data) || !NULL_BODY.equalsIgnoreCase(data)) {
             HttpEntity entity = new ByteArrayEntity(data.getBytes(StandardCharsets.UTF_8));
             entityEnclosingRequest.setEntity(entity);
         }
