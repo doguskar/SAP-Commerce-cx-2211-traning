@@ -40,7 +40,7 @@ public class DefaultPutOrderCommand extends AbstractPaazlRestCommand<PutOrderReq
     }
 
     @Override
-    public boolean isCreateRequestLogActive(PutOrderRequest request) {
+    public boolean isCreateRequestLogActive(PutOrderRequest request, boolean isFailed) {
         return true;
     }
 

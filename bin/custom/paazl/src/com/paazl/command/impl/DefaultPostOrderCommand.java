@@ -42,7 +42,7 @@ public class DefaultPostOrderCommand extends AbstractPaazlRestCommand<PostOrderR
     }
 
     @Override
-    public boolean isCreateRequestLogActive(PostOrderRequest request) {
+    public boolean isCreateRequestLogActive(PostOrderRequest request, boolean isFailed) {
         return true;
     }
 }

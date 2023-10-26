@@ -31,7 +31,7 @@ public class DefaultGetCheckoutCommand extends AbstractPaazlRestCommand<GetCheck
     }
 
     @Override
-    public boolean isCreateRequestLogActive(GetCheckoutRequest request) {
+    public boolean isCreateRequestLogActive(GetCheckoutRequest request, boolean isFailed) {
         return true;
     }
 

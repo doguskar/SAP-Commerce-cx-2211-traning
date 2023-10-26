@@ -6,35 +6,321 @@
 	ATTENTION: This is just an example file. You have to edit it according to your needs.
 -->
 
-<items 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-			xsi:noNamespaceSchemaLocation="items.xsd">
+<items xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="items.xsd">
 
-	<itemtypes>
-<!--
-		<itemtype generate="true"
-		   code="MyProduct"
-		   jaloclass="com.channeladvisor.jalo.MyProduct"
-		   extends="Product"
-		   autocreate="true"
-	   >
-			<attributes>
-				<attribute qualifier="myExampleInitialStringField" type="java.lang.String">
-					<description>My Example Initial String Value</description>
-					<modifiers initial="true"/>
-					<persistence type="property"/>
-				</attribute>
+    <collectiontypes>
+        <collectiontype code="ChannelAdvisorCustomAttributeMappings" elementtype="LtbChannelAdvisorFortiusFieldMap"
+                        type="set"/>
+        <collectiontype code="IntegerSet" elementtype="java.lang.Integer" generate="false" type="set"/>
+        <collectiontype code="DeliveryStatusHistoryList" elementtype="DeliveryStatusHistory" type="list"/>
+    </collectiontypes>
+    <itemtypes>
+        <!--from other exts-->
+        <itemtype code="MarketplaceCommonJob" extends="CronJob" autocreate="true" generate="true">
+            <description>MarketplaceCommonJob</description>
+            <attributes>
+                <attribute qualifier="productLists" type="MediaCollection">
+                    <description>productList</description>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="batchRequestIds" type="StringCollection">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="sendLimit" type="java.lang.Integer">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="lastSuccessDate" type="java.util.Date">
+                    <modifiers optional="true" write="true" read="true"/>
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+        <itemtype code="IntegrationCronJob" extends="CronJob">
+            <attributes>
+                <attribute qualifier="lastSuccessDate" type="java.util.Date">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="requestLogList" type="RequestLogList">
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+        <!--from other ext END-->
 
-				<attribute qualifier="myExampleBooleanField" type="java.lang.Boolean">
-					<description>Example Initial Boolean Field</description>
-               <persistence type="property"/>
-				</attribute>
+        <itemtype code="ChannelAdvisorSendProductsJob" extends="MarketplaceCommonJob">
+            <attributes>
+                <!--<attribute qualifier="marketPlace" type="Marketplace">
+                    <persistence type="property"/>
+                </attribute>-->
+                <attribute qualifier="channelAdvisorCustomAttributeMappings"
+                           type="ChannelAdvisorCustomAttributeMappings">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="languages" type="LanguageSet">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="failedCsv" type="MediaList">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="ftpUrl" type="java.lang.String">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="ftpUserName" type="java.lang.String">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="ftpPassword" type="java.lang.String">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="ftpDir" type="java.lang.String">
+                    <persistence type="property"/>
+                    <defaultvalue>/</defaultvalue>
+                </attribute>
+                <attribute qualifier="createdDocuments" type="MediaCollection">
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
 
-				<attribute qualifier="media" type="Media">
-					<persistence type="property"/>
-				</attribute>
+        <itemtype code="LtbChannelAdvisorFortiusFieldMap" extends="GenericItem">
+            <description>Channel Advisor integration field mapping for custom attributes. mapping table for
+                product.ArticleSpecs
+            </description>
+            <deployment table="ltbchanneladvfortiusmap" typecode="30025"/>
+            <attributes>
+                <attribute qualifier="fortiusGuid" type="java.lang.String">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="advisorName" type="java.lang.String">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="sendToAdvisor" type="java.lang.Boolean">
+                    <persistence type="property"/>
+                    <defaultvalue>Boolean.TRUE</defaultvalue>
+                </attribute>
+                <attribute qualifier="propertyName" type="java.lang.String">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="priority" type="java.lang.Integer">
+                    <persistence type="property"/>
+                    <model>
+                        <getter name="priority" default="true">
+                            <nullDecorator>Integer.MAX_VALUE</nullDecorator>
+                        </getter>
+                    </model>
+                </attribute>
+                <attribute qualifier="galleryImages" type="java.lang.String">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="referable" type="java.lang.Boolean">
+                    <persistence type="property"/>
+                    <defaultvalue>Boolean.FALSE</defaultvalue>
+                </attribute>
+            </attributes>
+        </itemtype>
 
-			</attributes>
-		</itemtype>
--->
-	</itemtypes>
+        <itemtype code="CAConfiguration" extends="GenericItem">
+            <description>Channel Advisor Ltb Configuration</description>
+            <deployment table="CAConf" typecode="30194"/>
+            <attributes>
+                <attribute qualifier="uid" type="java.lang.String">
+                    <persistence type="property"/>
+                    <modifiers unique="true"/>
+                </attribute>
+                <attribute qualifier="baseUrl" type="java.lang.String">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="tokenPath" type="java.lang.String">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="applicationId" type="java.lang.String">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="sharedSecret" type="java.lang.String">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="productsPath" type="java.lang.String">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="productExportPath" type="java.lang.String">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="account" type="ChannelAdvisorAccount">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="createOrderPath" type="java.lang.String">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="ordersPath" type="java.lang.String">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="orderCancelPath" type="java.lang.String">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="orderItemsPath" type="java.lang.String">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="orderItemAdjustmentsPath" type="java.lang.String">
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="ChannelAdvisorAccount" extends="GenericItem">
+            <deployment table="caAccounts" typecode="30195"/>
+            <attributes>
+                <attribute qualifier="code" type="java.lang.String">
+                    <persistence type="property"/>
+                    <modifiers unique="true" optional="false" initial="true"/>
+                </attribute>
+                <attribute qualifier="name" type="java.lang.String">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="profileId" type="java.lang.Integer">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="refreshToken" type="java.lang.String">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="accessToken" type="java.lang.String">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="accessTokenExpirationDate" type="java.util.Date">
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="BaseStoreConfiguration" autocreate="false" generate="false">
+            <attributes>
+                <attribute qualifier="cAConfiguration" type="CAConfiguration">
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="CAPartialStockUpdateJob" extends="IntegrationCronJob">
+            <attributes>
+                <attribute qualifier="baseStore" type="BaseStore">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="channelAdvisorAccount" type="ChannelAdvisorAccount">
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="CAFullStockUpdateJob" extends="IntegrationCronJob">
+            <attributes>
+                <attribute qualifier="baseStore" type="BaseStore">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="channelAdvisorAccount" type="ChannelAdvisorAccount">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="lastExportedProductFiles" type="MediaList">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="processStartedDate" type="java.util.Date">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="continueTrigger" type="Trigger">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="profileIds" type="IntegerSet">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="inProgressTokens" type="StringSet">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="inProgressProfileIds" type="IntegerSet">
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="CAPartialOrderUpdateJob" extends="IntegrationCronJob">
+            <attributes>
+                <attribute qualifier="baseStore" type="BaseStore">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="channelAdvisorAccount" type="ChannelAdvisorAccount">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="sites" type="BaseSiteCollection">
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="ChannelAdvisorCronJob" extends="IntegrationCronJob">
+            <attributes>
+                <attribute qualifier="baseStore" type="BaseStore">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="channelAdvisorAccount" type="ChannelAdvisorAccount">
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="Order" autocreate="false" generate="false">
+            <attributes>
+                <attribute qualifier="caOrderRequestLogs" type="RequestLogList">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="caOrderID" type="java.lang.Integer">
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="Consignment" autocreate="false" generate="false">
+            <attributes>
+                <attribute qualifier="deliveryStatusHistories" type="DeliveryStatusHistoryList">
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="DeliveryStatusMapping">
+            <deployment table="deliveryStatusMappings" typecode="30196"/>
+            <attributes>
+                <attribute qualifier="code" type="java.lang.String">
+                    <persistence type="property"/>
+                    <modifiers unique="true" optional="false" initial="true"/>
+                </attribute>
+                <attribute qualifier="consignmentStatus" type="ConsignmentStatus">
+                    <persistence type="property"/>
+                    <modifiers optional="false" initial="true"/>
+                </attribute>
+                <attribute qualifier="orderStatus" type="OrderStatus">
+                    <persistence type="property"/>
+                    <modifiers optional="false" initial="true"/>
+                </attribute>
+                <attribute qualifier="consignmentProcessWaitChoice" type="java.lang.String">
+                    <persistence type="property"/>
+                    <modifiers optional="false" initial="true"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype code="DeliveryStatusHistory">
+            <deployment table="deliveryStatusHistories" typecode="30197"/>
+            <attributes>
+                <attribute qualifier="receivedStatus" type="java.lang.String">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="updatedAs" type="ConsignmentStatus">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="date" type="java.util.Date">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="dateStr" type="java.lang.String">
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+    </itemtypes>
 </items>

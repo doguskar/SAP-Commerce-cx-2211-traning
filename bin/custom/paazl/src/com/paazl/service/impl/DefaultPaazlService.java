@@ -1,5 +1,6 @@
 package com.paazl.service.impl;
 
+import com.customcore.model.BaseStoreConfigurationModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.paazl.command.*;
 import com.paazl.command.request.*;
@@ -10,7 +11,7 @@ import com.paazl.model.PaazlConfigurationModel;
 import com.paazl.model.PaazlShipmentRequestParametersModel;
 import com.paazl.service.PaazlService;
 import com.paazl.soap.generated.*;
-import com.paazl.util.DateUtil;
+import com.customcore.util.DateUtil;
 import com.rest.integration.util.exception.NotSupportedException;
 import com.rest.integration.util.exception.RestCommandException;
 import com.rest.integration.util.factory.IFactory;
@@ -40,7 +41,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import de.hybris.platform.commercefacades.user.data.AddressData;
-import com.paazl.model.BaseStoreConfigurationModel;
 
 import javax.annotation.Resource;
 import javax.xml.rpc.ServiceException;

@@ -4,6 +4,7 @@
                managersuperclass="de.hybris.platform.jalo.extension.Extension" name="paazl" usemaven="true">
 
         <requires-extension name="restintegrationutil"/>
+        <requires-extension name="customcore"/>
         <requires-extension name="core"/>
         <requires-extension name="basecommerce"/>
         <requires-extension name="commerceservices"/>

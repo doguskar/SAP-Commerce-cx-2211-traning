@@ -1,0 +1,13 @@
+INSERT_UPDATE DeliveryStatusMapping; code[unique = true]; consignmentStatus(code); orderStatus(code); consignmentProcessWaitChoice
+; Shipped             ; READY_FOR_SHIPPING ; PREPARING  ; readyForShippedFromChannelAdvisor
+; Accepted by carrier ; SHIPPED            ; SHIPPED    ; shippedFromChannelAdvisor
+; Sorted              ; SHIPPED            ; SHIPPED    ; sortedFromChannelAdvisor
+; At pickup point     ; DELIVERING         ; SHIPPED    ; atPickupPointFromChannelAdvisor
+; Delivery started    ; DELIVERING         ; SHIPPED    ; deliveryStartedFromChannelAdvisor
+; Labeled             ; DELIVERING         ; SHIPPED    ; labeledFromChannelAdvisor
+; In Delivery         ; DELIVERING         ; SHIPPED    ; inDeliveryFromChannelAdvisor
+; Delivered           ; DELIVERED          ; COMPLETED  ; deliveredFromChannelAdvisor
+; Tracked Externally  ; DELIVERED          ; COMPLETED  ; deliveredFromChannelAdvisor
+; Canceled            ; TO_BE_CANCELLED    ; CANCELLING ; notDeliveredFromChannelAdvisor
+
+

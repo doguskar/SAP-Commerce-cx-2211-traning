@@ -1,0 +1,34 @@
+$baseStore=ltb-tr
+$caAct-code=ca-act-nl
+
+INSERT_UPDATE ServicelayerJob; code[unique = true]; springId
+; caPartialStockUpdateJob ; caPartialStockUpdateJob
+INSERT_UPDATE CAPartialStockUpdateJob; code[unique = true]; job(code); sessionLanguage(isocode); baseStore(uid); channelAdvisorAccount(code)
+; caPartialStockUpdateCronJob ; caPartialStockUpdateJob ; en ; $baseStore ; $caAct-code
+
+
+$caAct-profileIds=12037045
+INSERT_UPDATE ServicelayerJob; code[unique = true]; springId
+; caFullStockUpdateJob ; caFullStockUpdateJob
+INSERT_UPDATE CAFullStockUpdateJob; code[unique = true]; job(code); sessionLanguage(isocode); baseStore(uid); channelAdvisorAccount(code); profileIds
+; caFullStockUpdateCronJob ; caFullStockUpdateJob ; en ; $baseStore ; $caAct-code ; $caAct-profileIds
+
+
+INSERT_UPDATE ServicelayerJob; code[unique = true]; springId
+; caPartialOrderUpdateJob ; caPartialOrderUpdateJob
+INSERT_UPDATE CAPartialOrderUpdateJob; code[unique = true]; job(code); sessionLanguage(isocode); baseStore(uid); channelAdvisorAccount(code)
+; caPartialOrderUpdateCronJob ; caPartialOrderUpdateJob ; en ; $baseStore ; $caAct-code
+
+
+#EUReturnFromCashOnDeliveryJob
+INSERT_UPDATE ServicelayerJob; code[unique = true]; springId
+                             ; euReturnFromCashOnDeliveryJob ; euReturnFromCashOnDeliveryJob
+INSERT_UPDATE ChannelAdvisorCronJob; code[unique = true]; job(code); sessionLanguage(isocode); baseStore(uid); channelAdvisorAccount(code)
+                       ; euReturnFromCashOnDeliveryCronJob ; euReturnFromCashOnDeliveryJob ; en ; $baseStore ; $caAct-code
+
+#EUReturnFromSiteJob
+INSERT_UPDATE ServicelayerJob; code[unique = true]; springId
+                             ; euReturnFromSiteJob ; euReturnFromSiteJob
+INSERT_UPDATE ChannelAdvisorCronJob; code[unique = true]; job(code); sessionLanguage(isocode); baseStore(uid); channelAdvisorAccount(code)
+                       ; euReturnFromSiteCronJob ; euReturnFromSiteJob ; en ; $baseStore ; $caAct-code
+

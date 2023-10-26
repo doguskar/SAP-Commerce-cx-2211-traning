@@ -99,7 +99,7 @@ public abstract class AbstractRestCommand<REQUEST extends IRequest, RESPONSE> im
             throw new RestCommandException(e);
         } finally {
             // Create request log
-            if (isCreateRequestLogActive(request)) {
+            if (isCreateRequestLogActive(request, Objects.nonNull(exception))) {
                 final RequestLogModel requestLog = createRequestLog(request, response, baseRequest, responseBody, exception);
                 try {
                     IFactory<ISaveRequestLogCommand> saveRequestLogCommandFactory = iFactoryRegistry.getFactory(RestintegrationutilConstants.SAVE_REQUEST_LOG_COMMAND_FACTORY_KEY);
@@ -256,7 +256,7 @@ public abstract class AbstractRestCommand<REQUEST extends IRequest, RESPONSE> im
     }
 
     public RequestLogModel createRequestLog(REQUEST request, HttpResponse response, HttpRequestBase baseRequest, String responseBody, Exception exception) {
-        if (isCreateRequestLogActive(request)) {
+        if (isCreateRequestLogActive(request, Objects.nonNull(exception))) {
             final int statusCode = response.getStatusLine().getStatusCode();
             final ObjectWriter writer = mapper.writer();
             String requestBody;
@@ -285,10 +285,11 @@ public abstract class AbstractRestCommand<REQUEST extends IRequest, RESPONSE> im
         return "request.log." + request.getClass().getSimpleName() + ".persistent";
     }
 
-    public boolean isCreateRequestLogActive(REQUEST request) {
+    public boolean isCreateRequestLogActive(REQUEST request, boolean isFailed) {
         // if you want to create request log always, override this method and return true.
         boolean isCreateRequestLogEnabled = configurationService.getConfiguration().getBoolean(createRequestLogEnabledKey(request), false);
-        return isCreateRequestLogEnabled || isCreateRequestLogWhenFailedActive();
+        LOG.error("isCreateRequestLogEnabled: " + isCreateRequestLogEnabled + "");
+        return isCreateRequestLogEnabled || (isFailed && isCreateRequestLogWhenFailedActive());
     }
 
     public boolean isCreateRequestLogWhenFailedActive() {

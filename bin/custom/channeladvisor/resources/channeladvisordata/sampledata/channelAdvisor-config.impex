@@ -1,0 +1,34 @@
+$caCfg-uid=ca-cfg
+#$caCfg-baseUrl=https://api.channeladvisor.com
+$caCfg-baseUrl=
+$caCfg-tokenPath=/oauth2/token
+#Stage
+$caCfg-applicationId=ApplicationId
+$caCfg-sharedSecret=SharedSecret
+$caCfg-productsPath=/v1/Products
+$caCfg-productExportPath=/v1/ProductExport
+$caCfg-createOrderPath=/v1/Orders/Create
+$caCfg-ordersPath=/v1/Orders
+$caCfg-orderCancelPath=/v1/Orders/{orderId}/Adjust
+$caCfg-orderItemsPath=/v1/OrderItems
+$caCfg-orderItemAdjustmentsPath=/v1/OrderItemAdjustments/{Id}
+
+$caAct-nl-code=ca-act-nl
+$caAct-nl-name=NL Account
+$caAct-nl-refreshToken=RefreshToken
+$caAct-nl-profileId=1111
+$bsCfg-uid=configuration
+
+INSERT_UPDATE ChannelAdvisorAccount; code[unique = true]; name; refreshToken; profileId;
+; $caAct-nl-code ; $caAct-nl-name ; $caAct-nl-refreshToken ; $caAct-nl-profileId
+
+
+INSERT_UPDATE CAConfiguration; uid[unique = true]; baseUrl; tokenPath; applicationId; sharedSecret; productsPath; productExportPath; account(code); createOrderPath; ordersPath; orderCancelPath; orderItemsPath; orderItemAdjustmentsPath
+; $caCfg-uid ; $caCfg-baseUrl ; $caCfg-tokenPath ; $caCfg-applicationId ; $caCfg-sharedSecret ; $caCfg-productsPath ; $caCfg-productExportPath ; $caAct-nl-code ; $caCfg-createOrderPath ; $caCfg-ordersPath; $caCfg-orderCancelPath; $caCfg-orderItemsPath; $caCfg-orderItemAdjustmentsPath
+
+
+INSERT_UPDATE BaseStoreConfiguration; uid[unique = true]; cAConfiguration(uid);
+; $bsCfg-uid ; $caCfg-uid
+
+
+

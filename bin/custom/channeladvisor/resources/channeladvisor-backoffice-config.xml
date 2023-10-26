@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<config xmlns="http://www.hybris.com/cockpit/config"
+        xmlns:na="http://www.hybris.com/cockpitng/config/notifications"
+        xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea"
+        xmlns:list-view="http://www.hybris.com/cockpitng/component/listView"
+        xmlns:y="http://www.hybris.com/cockpit/config/hybris"
+        xmlns:as="http://www.hybris.com/cockpitng/config/advancedsearch"
+        xmlns:yss="http://www.hybris.com/cockpitng/config/simplesearch"
+        xmlns:n="http://www.hybris.com/cockpitng/config/explorertree"
+        xmlns:list="http://www.hybris.com/cockpitng/component/listView"
+        xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch"
+        xmlns:p="http://www.hybris.com/cockpitng/config/perspectiveChooser"
+        xmlns:wz="http://www.hybris.com/cockpitng/config/wizard-config">
+
+    <context merge-by="type" parent="GenericItem" type="CAConfiguration" component="base">
+        <y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+            <y:labels>
+                <y:label>uid</y:label>
+            </y:labels>
+        </y:base>
+    </context>
+    <context merge-by="type" type="CAConfiguration" parent="GenericItem" component="editor-area">
+        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+            <editorArea:essentials>
+                <editorArea:essentialSection name="hmc.essential">
+                    <editorArea:attribute qualifier="uid"/>
+                </editorArea:essentialSection>
+            </editorArea:essentials>
+            <editorArea:tab name="ltb.tab">
+                <editorArea:section name="hmc.sec.basic" position="0">
+                    <editorArea:attribute qualifier="baseUrl"/>
+                    <editorArea:attribute qualifier="applicationId"/>
+                    <editorArea:attribute qualifier="sharedSecret"/>
+                    <editorArea:attribute qualifier="account"/>
+                </editorArea:section>
+                <editorArea:section name="hmc.sec.path" position="1">
+                    <editorArea:attribute qualifier="tokenPath"/>
+                    <editorArea:attribute qualifier="productsPath"/>
+                    <editorArea:attribute qualifier="productExportPath"/>
+                    <editorArea:attribute qualifier="createOrderPath"/>
+                    <editorArea:attribute qualifier="ordersPath"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+    <context merge-by="type" parent="GenericItem" type="ChannelAdvisorAccount" component="base">
+        <y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+            <y:labels>
+                <y:label>name + ' - ' +  profileId</y:label>
+            </y:labels>
+        </y:base>
+    </context>
+    <context merge-by="type" type="ChannelAdvisorAccount" parent="GenericItem" component="editor-area">
+        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+            <editorArea:essentials>
+                <editorArea:essentialSection name="hmc.essential">
+                    <editorArea:attribute qualifier="code"/>
+                </editorArea:essentialSection>
+            </editorArea:essentials>
+            <editorArea:tab name="ltb.tab">
+                <editorArea:section name="hmc.sec.basic" position="0">
+                    <editorArea:attribute qualifier="name"/>
+                    <editorArea:attribute qualifier="profileId"/>
+                    <editorArea:attribute qualifier="refreshToken"/>
+                    <editorArea:attribute qualifier="accessToken" readonly="true"/>
+                    <editorArea:attribute qualifier="accessTokenExpirationDate" readonly="true"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+    <context merge-by="type" type="BaseStoreConfiguration" parent="GenericItem" component="editor-area">
+        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+            <editorArea:tab name="ltb.tab">
+                <editorArea:section name="hmc.sec.config">
+                    <editorArea:attribute qualifier="cAConfiguration"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+    <context merge-by="type" type="CAPartialStockUpdateJob" parent="CronJob" component="editor-area">
+        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+            <editorArea:tab name="ltb.tab">
+                <editorArea:section name="hmc.sec.basic" position="0">
+                    <editorArea:attribute qualifier="baseStore"/>
+                    <editorArea:attribute qualifier="channelAdvisorAccount"/>
+                    <editorArea:attribute qualifier="lastSuccessDate" readonly="true"/>
+                    <editorArea:attribute qualifier="requestLogList"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+    <context merge-by="type" type="CAFullStockUpdateJob" parent="CronJob" component="editor-area">
+        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+            <editorArea:tab name="ltb.tab">
+                <editorArea:section name="hmc.sec.basic" position="0">
+                    <editorArea:attribute qualifier="baseStore"/>
+                    <editorArea:attribute qualifier="channelAdvisorAccount"/>
+                    <editorArea:attribute qualifier="profileIds"/>
+                    <editorArea:attribute qualifier="lastExportedProductFiles"/>
+                    <editorArea:attribute qualifier="requestLogList"/>
+                    <editorArea:attribute qualifier="continueTrigger" readonly="true"/>
+                    <editorArea:attribute qualifier="lastSuccessDate" readonly="true"/>
+                    <editorArea:attribute qualifier="processStartedDate" readonly="true"/>
+                    <editorArea:attribute qualifier="inProgressTokens" readonly="true"/>
+                    <editorArea:attribute qualifier="inProgressProfileIds" readonly="true"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+    <context merge-by="type" type="CAPartialOrderUpdateJob" parent="CronJob" component="editor-area">
+        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+            <editorArea:tab name="ltb.tab">
+                <editorArea:section name="hmc.sec.basic" position="0">
+                    <editorArea:attribute qualifier="baseStore"/>
+                    <editorArea:attribute qualifier="sites"/>
+                    <editorArea:attribute qualifier="channelAdvisorAccount"/>
+                    <editorArea:attribute qualifier="lastSuccessDate" readonly="true"/>
+                    <editorArea:attribute qualifier="requestLogList"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+    <context merge-by="type" type="CACheckOrderStatusJob" parent="CronJob" component="editor-area">
+        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+            <editorArea:tab name="ltb.tab">
+                <editorArea:section name="hmc.sec.basic" position="0">
+                    <editorArea:attribute qualifier="baseStore"/>
+                    <editorArea:attribute qualifier="channelAdvisorAccount"/>
+                    <editorArea:attribute qualifier="checkStatusStartedDate"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+    <context merge-by="type" parent="GenericItem" type="DeliveryStatusHistory" component="base">
+        <y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+            <y:labels>
+                <y:label>receivedStatus + ' - ' +  dateStr</y:label>
+            </y:labels>
+        </y:base>
+    </context>
+    <context merge-by="type" type="DeliveryStatusHistory" parent="GenericItem" component="editor-area">
+        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+            <editorArea:tab name="ltb.tab">
+                <editorArea:section name="hmc.sec.basic" position="0">
+                    <editorArea:attribute qualifier="receivedStatus" readonly="true"/>
+                    <editorArea:attribute qualifier="updatedAs" readonly="true"/>
+                    <editorArea:attribute qualifier="date" readonly="true"/>
+                    <editorArea:attribute qualifier="dateStr" readonly="true"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+</config>
+
+

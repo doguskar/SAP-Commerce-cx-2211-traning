@@ -39,7 +39,7 @@ public class DefaultPostOrderShipmentsCommand extends AbstractPaazlRestCommand<P
     }
 
     @Override
-    public boolean isCreateRequestLogActive(PostOrderShipmentsRequest request) {
+    public boolean isCreateRequestLogActive(PostOrderShipmentsRequest request, boolean isFailed) {
         return true;
     }
 }

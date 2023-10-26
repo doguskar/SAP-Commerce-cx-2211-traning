@@ -59,6 +59,9 @@ INSERT_UPDATE UserGroup;uid[unique=true];groups(uid);
 INSERT_UPDATE Customer; uid[unique = true]; password[default = $defaultPassword]; name; description; sessionLanguage(isocode); sessionCurrency(isocode); groups(uid); loginDisabled[default = false]; customerID
 ; test@hybris.net ; ; John Stockton ; ; en ; USD ; customergroup ; ; test@hybris.net ;
 
+INSERT_UPDATE Country;isocode[unique=true];name[lang=en];active;;;;;;
+; JP ; Japan ; true ; ; ; ; ; ;
+
 INSERT_UPDATE Address;&addrID;owner(Customer.uid)[unique=true];streetname[unique=true];streetnumber[unique=true];postalcode[unique=true];duplicate[unique=true];town;country(isocode);billingAddress;contactAddress;shippingAddress;unloadingAddress;firstname;lastname;email;gender(code);middlename;phone1;url;company;fax;department
 ;addr1001; test@hybris.net ; testAddr ; 1 ; 28277 ; false ; Bremen ; JP ; true ; true ; true ; true ; Klaus ; Demokunde ; develop@hybris.de ; MALE ; ; ; ; hybris GmbH ;
 

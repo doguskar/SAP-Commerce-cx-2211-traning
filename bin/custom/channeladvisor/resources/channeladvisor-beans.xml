@@ -8,55 +8,1417 @@
 
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
 
-	<!--
-		Example Data POJO
-	
-	<bean class="com.channeladvisor.data.AbstractPojo" abstract="true">
-		<property name="id" type="String"/>
-		<property name="flag" type="boolean"/>
+	<enum class="com.channeladvisor.data.FlagType" template="resources/string_enum.vm" >
+		<value>NoFlag("NoFlag")</value>
+		<value>RedFlag("RedFlag")</value>
+		<value>QuestionMark("QuestionMark")</value>
+		<value>NotAvailable("NotAvailable")</value>
+		<value>Price("Price")</value>
+		<value>YellowFlag("YellowFlag")</value>
+		<value>GreenFlag("GreenFlag")</value>
+		<value>BlueFlag("BlueFlag")</value>
+		<value>NotSpecified("NotSpecified")</value>
+		<value>ItemCopied("ItemCopied")</value>
+		<value>ExclamationPoint("ExclamationPoint")</value>
+	</enum>
+
+	<enum class="com.channeladvisor.data.BundleType" template="resources/string_enum.vm" >
+		<value>None("None")</value>
+		<value>BundleComponent("BundleComponent")</value>
+		<value>BundleItem("BundleItem")</value>
+		<value>AssemblyBundleItem("AssemblyBundleItem")</value>
+	</enum>
+
+	<enum class="com.channeladvisor.data.InventoryItemType" template="resources/string_enum.vm" >
+		<value>Item("Item")</value>
+		<value>Child("Child")</value>
+		<value>Bundle("Bundle")</value>
+		<value>Parent("Parent")</value>
+	</enum>
+
+	<enum class="com.channeladvisor.data.AdjustmentReason" template="resources/string_enum.vm" >
+		<value>GeneralAdjustment("GeneralAdjustment")</value>
+		<value>ItemNotAvailable("ItemNotAvailable")</value>
+		<value>CustomerReturnedItem("CustomerReturnedItem")</value>
+		<value>CouldNotShip("CouldNotShip")</value>
+		<value>AlternateItemProvided("AlternateItemProvided")</value>
+		<value>BuyerCancelled("BuyerCancelled")</value>
+		<value>CustomerExchange("CustomerExchange")</value>
+		<value>MerchandiseNotReceived("MerchandiseNotReceived")</value>
+		<value>ShippingAddressUndeliverable("ShippingAddressUndeliverable")</value>
+	</enum>
+
+	<enum class="com.channeladvisor.data.AdjustmentSource" template="resources/string_enum.vm" >
+		<value>Channel("Channel")</value>
+		<value>UserInterface("UserInterface")</value>
+		<value>Api("Api")</value>
+		<value>System("System")</value>
+	</enum>
+
+	<enum class="com.channeladvisor.data.AdjustmentType" template="resources/string_enum.vm" >
+		<value>Refund("Refund")</value>
+		<value>Cancellation("Cancellation")</value>
+	</enum>
+
+	<enum class="com.channeladvisor.data.AsyncStatus" template="resources/string_enum.vm" >
+		<value>SubmittedNotProcessed("SubmittedNotProcessed")</value>
+		<value>NewRma("NewRma")</value>
+		<value>PendingApproval("PendingApproval")</value>
+		<value>ProcessingApproval("ProcessingApproval")</value>
+		<value>ReadyForReturn("ReadyForReturn")</value>
+		<value>PendingReturn("PendingReturn")</value>
+		<value>ProcessingReturn("ProcessingReturn")</value>
+		<value>PendingRejection("PendingRejection")</value>
+		<value>ProcessingRejection("ProcessingRejection")</value>
+		<value>ProcessedNotAcknowledged("ProcessedNotAcknowledged")</value>
+		<value>PendingReturnRejection("PendingReturnRejection")</value>
+		<value>ProcessingReturnRejection("ProcessingReturnRejection")</value>
+		<value>AcknowledgedPostProcessingNotComplete("AcknowledgedPostProcessingNotComplete")</value>
+		<value>PostProcessingComplete("PostProcessingComplete")</value>
+		<value>RejectionCompleted("RejectionCompleted")</value>
+		<value>InformationOnly("InformationOnly")</value>
+		<value>NoChange("NoChange")</value>
+		<value>Error("Error")</value>
+	</enum>
+
+	<enum class="com.channeladvisor.data.ChannelDocumentType" template="resources/string_enum.vm" >
+		<value>AmazonVATInvoice("AmazonVATInvoice")</value>
+		<value>AmazonVATCreditNote("AmazonVATCreditNote")</value>
+	</enum>
+
+	<enum class="com.channeladvisor.data.CheckoutStatus" template="resources/string_enum.vm" >
+		<value>NotVisited("NotVisited")</value>
+		<value>Completed("Completed")</value>
+		<value>Visited("Visited")</value>
+		<value>CompletedAndVisited("CompletedAndVisited")</value>
+		<value>Disabled("Disabled")</value>
+		<value>CompletedOffline("CompletedOffline")</value>
+		<value>OnHold("OnHold")</value>
+	</enum>
+
+	<enum class="com.channeladvisor.data.DeliveryStatus" template="resources/string_enum.vm" >
+		<value>NoChange("NoChange")</value>
+		<value>InTransit("InTransit")</value>
+		<value>ReadyForPickup("ReadyForPickup")</value>
+		<value>Complete("Complete")</value>
+		<value>Canceled("Canceled")</value>
+		<value>ThirdPartyManaged("ThirdPartyManaged")</value>
+		<value>Confirmed("Confirmed")</value>
+		<value>PickAndPack("PickAndPack")</value>
+		<value>LabelCreated("LabelCreated")</value>
+	</enum>
+
+	<enum class="com.channeladvisor.data.DistributionCenterRollupType" template="resources/string_enum.vm" >
+		<value>SellerManaged("SellerManaged")</value>
+		<value>ExternallyManaged("ExternallyManaged")</value>
+		<value>Mixed("Mixed")</value>
+	</enum>
+
+	<enum class="com.channeladvisor.data.FulfillmentItemSiteCommunicationStatus" template="resources/string_enum.vm" >
+		<value>Pending("Pending")</value>
+		<value>InProgress("InProgress")</value>
+		<value>Complete("Complete")</value>
+		<value>CompletedWithoutNotification("CompletedWithoutNotification")</value>
+		<value>Failed("Failed")</value>
+	</enum>
+
+	<enum class="com.channeladvisor.data.FulfillmentRequestStatus" template="resources/string_enum.vm" >
+		<value>New("New")</value>
+		<value>Pending("Pending")</value>
+		<value>Sent("Sent")</value>
+		<value>Processing("Processing")</value>
+		<value>Complete("Complete")</value>
+		<value>Held("Held")</value>
+		<value>Failed("Failed")</value>
+	</enum>
+
+	<enum class="com.channeladvisor.data.FulfillmentType" template="resources/string_enum.vm" >
+		<value>Ship("Ship")</value>
+		<value>Pickup("Pickup")</value>
+		<value>ShipToStore("ShipToStore")</value>
+		<value>Courier("Courier")</value>
+	</enum>
+
+	<enum class="com.channeladvisor.data.LabelFormatType" template="resources/string_enum.vm" >
+		<value>JPEG("JPEG")</value>
+		<value>PDF("PDF")</value>
+		<value>PNG("PNG")</value>
+		<value>GzipPDF("GzipPDF")</value>
+		<value>GIFLandscape("GIFLandscape")</value>
+		<value>GzipPNG("GzipPNG")</value>
+		<value>GIFPortrait("GIFPortrait")</value>
+		<value>ZPL("ZPL")</value>
+		<value>GzipZPL("GzipZPL")</value>
+	</enum>
+
+	<enum class="com.channeladvisor.data.PaymentStatus" template="resources/string_enum.vm">
+		<value>NotYetSubmitted("NotYetSubmitted")</value>
+		<value>Cleared("Cleared")</value>
+		<value>Submitted("Submitted")</value>
+		<value>Failed("Failed")</value>
+		<value>Deposited("Deposited")</value>
+	</enum>
+
+	<enum class="com.channeladvisor.data.ShippingStatus" template="resources/string_enum.vm">
+		<value>Unshipped("Unshipped")</value>
+		<value>Shipped("Shipped")</value>
+		<value>PartiallyShipped("PartiallyShipped")</value>
+		<value>PendingShipment("PendingShipment")</value>
+		<value>Canceled("Canceled")</value>
+		<value>ThirdPartyManaged("ThirdPartyManaged")</value>
+	</enum>
+
+	<enum class="com.channeladvisor.data.TaxType" template="resources/string_enum.vm">
+		<value>NoTax("NoTax")</value>
+		<value>Standard("Standard")</value>
+		<value>ExclusiveVat("ExclusiveVat")</value>
+		<value>InclusiveVat("InclusiveVat")</value>
+	</enum>
+
+	<bean class="com.channeladvisor.data.ProductData">
+		<import type="com.fasterxml.jackson.annotation.JsonProperty"/>
+		<property name="id" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("ID")</annotations>
+		</property>
+		<property name="profileId" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("ProfileID")</annotations>
+		</property>
+		<property name="createDateUtc" type="java.lang.String"><!--Type="Edm.DateTimeOffset"-->
+			<annotations scope="member">@JsonProperty("CreateDateUtc")</annotations>
+		</property>
+		<property name="updateDateUtc" type="java.lang.String"><!--Type="Edm.DateTimeOffset"-->
+			<annotations scope="member">@JsonProperty("UpdateDateUtc")</annotations>
+		</property>
+		<property name="quantityUpdateDateUtc" type="java.lang.String"><!--Type="Edm.DateTimeOffset"-->
+			<annotations scope="member">@JsonProperty("QuantityUpdateDateUtc")</annotations>
+		</property>
+		<property name="isAvailableInStore" type="java.lang.Boolean">
+			<annotations scope="member">@JsonProperty("IsAvailableInStore")</annotations>
+		</property>
+		<property name="isBlocked" type="java.lang.Boolean">
+			<annotations scope="member">@JsonProperty("IsBlocked")</annotations>
+		</property>
+		<property name="isBlockedFromAdvertising" type="java.lang.Boolean">
+			<annotations scope="member">@JsonProperty("IsBlockedFromAdvertising")</annotations>
+		</property>
+		<property name="isExternalQuantityBlocked" type="java.lang.Boolean">
+			<annotations scope="member">@JsonProperty("IsExternalQuantityBlocked")</annotations>
+		</property>
+		<property name="infiniteQuantity" type="java.lang.Boolean">
+			<annotations scope="member">@JsonProperty("InfiniteQuantity")</annotations>
+		</property>
+		<property name="blockComment" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("BlockComment")</annotations>
+		</property>
+		<property name="blockedDateUtc" type="java.lang.String"><!--Type="Edm.DateTimeOffset"-->
+			<annotations scope="member">@JsonProperty("BlockedDateUtc")</annotations>
+		</property>
+		<property name="blockedFromAdvertisingDateUtc" type="java.lang.String"><!--Type="Edm.DateTimeOffset"-->
+			<annotations scope="member">@JsonProperty("BlockedFromAdvertisingDateUtc")</annotations>
+		</property>
+		<property name="receivedDateUtc" type="java.lang.String"><!--Type="Edm.DateTimeOffset"-->
+			<annotations scope="member">@JsonProperty("ReceivedDateUtc")</annotations>
+		</property>
+		<property name="lastSaleDateUtc" type="java.lang.String"><!--Type="Edm.DateTimeOffset"-->
+			<annotations scope="member">@JsonProperty("LastSaleDateUtc")</annotations>
+		</property>
+		<property name="asin" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("ASIN")</annotations>
+		</property>
+		<property name="brand" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("Brand")</annotations>
+		</property>
+		<property name="condition" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("Condition")</annotations>
+		</property>
+		<property name="description" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("Description")</annotations>
+		</property>
+		<property name="ean" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("EAN")</annotations>
+		</property>
+		<property name="flagDescription" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("FlagDescription")</annotations>
+		</property>
+		<property name="flag" type="com.channeladvisor.data.FlagType">
+			<annotations scope="member">@JsonProperty("Flag")</annotations>
+		</property>
+		<property name="harmonizedCode" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("HarmonizedCode")</annotations>
+		</property>
+		<property name="isbn" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("ISBN")</annotations>
+		</property>
+		<property name="manufacturer" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("Manufacturer")</annotations>
+		</property>
+		<property name="mpn" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("MPN")</annotations>
+		</property>
+		<property name="shortDescription" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("ShortDescription")</annotations>
+		</property>
+		<property name="sku" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("Sku")</annotations>
+		</property>
+		<property name="subtitle" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("Subtitle")</annotations>
+		</property>
+		<property name="taxProductCode" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("TaxProductCode")</annotations>
+		</property>
+		<property name="title" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("Title")</annotations>
+		</property>
+		<property name="upc" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("UPC")</annotations>
+		</property>
+		<property name="warehouseLocation" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("WarehouseLocation")</annotations>
+		</property>
+		<property name="warranty" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("Warranty")</annotations>
+		</property>
+		<property name="multipackQuantity" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("MultipackQuantity")</annotations>
+		</property>
+		<property name="height" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("Height")</annotations>
+		</property>
+		<property name="length" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("Length")</annotations>
+		</property>
+		<property name="width" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("Width")</annotations>
+		</property>
+		<property name="weight" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("Weight")</annotations>
+		</property>
+		<property name="cost" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("Cost")</annotations>
+		</property>
+		<property name="margin" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("Margin")</annotations>
+		</property>
+		<property name="retailPrice" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("RetailPrice")</annotations>
+		</property>
+		<property name="startingPrice" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("StartingPrice")</annotations>
+		</property>
+		<property name="reservePrice" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("ReservePrice")</annotations>
+		</property>
+		<property name="buyItNowPrice" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("BuyItNowPrice")</annotations>
+		</property>
+		<property name="storePrice" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("StorePrice")</annotations>
+		</property>
+		<property name="secondChancePrice" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("SecondChancePrice")</annotations>
+		</property>
+		<property name="minPrice" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("MinPrice")</annotations>
+		</property>
+		<property name="maxPrice" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("MaxPrice")</annotations>
+		</property>
+		<property name="estimatedShippingCost" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("EstimatedShippingCost")</annotations>
+		</property>
+		<property name="supplierName" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("SupplierName")</annotations>
+		</property>
+		<property name="supplierCode" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("SupplierCode")</annotations>
+		</property>
+		<property name="supplierPO" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("SupplierPO")</annotations>
+		</property>
+		<property name="classification" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("Classification")</annotations>
+		</property>
+		<property name="isDisplayInStore" type="java.lang.Boolean">
+			<annotations scope="member">@JsonProperty("IsDisplayInStore")</annotations>
+		</property>
+		<property name="storeTitle" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("StoreTitle")</annotations>
+		</property>
+		<property name="storeDescription" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("StoreDescription")</annotations>
+		</property>
+		<property name="bundleType" type="com.channeladvisor.data.BundleType">
+			<annotations scope="member">@JsonProperty("BundleType")</annotations>
+		</property>
+		<property name="productType" type="com.channeladvisor.data.InventoryItemType">
+			<annotations scope="member">@JsonProperty("ProductType")</annotations>
+		</property>
+		<property name="totalAvailableQuantity" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("TotalAvailableQuantity")</annotations>
+		</property>
+		<property name="openAllocatedQuantity" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("OpenAllocatedQuantity")</annotations>
+		</property>
+		<property name="openAllocatedQuantityPooled" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("OpenAllocatedQuantityPooled")</annotations>
+		</property>
+		<property name="pendingCheckoutQuantity" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("PendingCheckoutQuantity")</annotations>
+		</property>
+		<property name="pendingCheckoutQuantityPooled" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("PendingCheckoutQuantityPooled")</annotations>
+		</property>
+		<property name="pendingPaymentQuantity" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("PendingPaymentQuantity")</annotations>
+		</property>
+		<property name="pendingPaymentQuantityPooled" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("PendingPaymentQuantityPooled")</annotations>
+		</property>
+		<property name="pendingShipmentQuantity" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("PendingShipmentQuantity")</annotations>
+		</property>
+		<property name="pendingShipmentQuantityPooled" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("PendingShipmentQuantityPooled")</annotations>
+		</property>
+		<property name="totalQuantity" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("TotalQuantity")</annotations>
+		</property>
+		<property name="totalQuantityPooled" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("TotalQuantityPooled")</annotations>
+		</property>
+		<property name="quantitySoldLast7Days" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("QuantitySoldLast7Days")</annotations>
+		</property>
+		<property name="quantitySoldLast14Days" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("QuantitySoldLast14Days")</annotations>
+		</property>
+		<property name="quantitySoldLast30Days" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("QuantitySoldLast30Days")</annotations>
+		</property>
+		<property name="quantitySoldLast60Days" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("QuantitySoldLast60Days")</annotations>
+		</property>
+		<property name="quantitySoldLast90Days" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("QuantitySoldLast90Days")</annotations>
+		</property>
+		<property name="isParent" type="java.lang.Boolean">
+			<annotations scope="member">@JsonProperty("IsParent")</annotations>
+		</property>
+		<property name="isInRelationship" type="java.lang.Boolean">
+			<annotations scope="member">@JsonProperty("IsInRelationship")</annotations>
+		</property>
+		<property name="copyToChildren" type="java.lang.Boolean">
+			<annotations scope="member">@JsonProperty("CopyToChildren")</annotations>
+		</property>
+		<property name="parentProductID" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("ParentProductID")</annotations>
+		</property>
+		<property name="parentSku" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("ParentSku")</annotations>
+		</property>
+		<property name="relationshipName" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("RelationshipName")</annotations>
+		</property>
+		<property name="varyBy" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("VaryBy")</annotations>
+		</property>
+		<property name="attributes" type="java.util.List&lt;com.channeladvisor.data.AttributeValueData>">
+			<annotations scope="member">@JsonProperty("Attributes")</annotations>
+		</property>
+		<property name="dcQuantities" type="java.util.List&lt;com.channeladvisor.data.DCQuantityData>">
+			<annotations scope="member">@JsonProperty("DCQuantities")</annotations>
+		</property>
+		<property name="images" type="java.util.List&lt;com.channeladvisor.data.ImageData>">
+			<annotations scope="member">@JsonProperty("Images")</annotations>
+		</property>
+		<property name="labels" type="java.util.List&lt;com.channeladvisor.data.ProductLabelData>">
+			<annotations scope="member">@JsonProperty("Labels")</annotations>
+		</property>
+		<property name="bundleComponents" type="java.util.List&lt;com.channeladvisor.data.ProductBundleComponentData>">
+			<annotations scope="member">@JsonProperty("BundleComponents")</annotations>
+		</property>
+		<property name="children" type="java.util.List&lt;com.channeladvisor.data.ChildRelationshipData>">
+			<annotations scope="member">@JsonProperty("Children")</annotations>
+		</property>
 	</bean>
 
-	<bean class="com.channeladvisor.data.MyPojo" extends="com.channeladvisor.data.AbstractPojo">
-		<property name="message" type="String"/>
+	<bean class="com.channeladvisor.data.AttributeValueData">
+		<import type="com.fasterxml.jackson.annotation.JsonProperty"/>
+		<import type="com.fasterxml.jackson.annotation.JsonIgnore"/>
+		<property name="productId" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("ProductID")</annotations>
+		</property>
+		<property name="profileId" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("ProfileID")</annotations>
+		</property>
+		<property name="name" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("Name")</annotations>
+		</property>
+		<property name="value" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("Value")</annotations>
+		</property>
+		<property name="product" type="com.channeladvisor.data.ProductData">
+			<annotations scope="member">@JsonProperty("Product")</annotations>
+			<annotations scope="member">@JsonIgnore</annotations>
+		</property>
 	</bean>
 
-	<bean class="com.channeladvisor.data.AnnotatedPojo">
+	<bean class="com.channeladvisor.data.DCQuantityData">
+		<import type="com.fasterxml.jackson.annotation.JsonProperty"/>
+		<import type="com.fasterxml.jackson.annotation.JsonIgnore"/>
+		<property name="productId" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("ProductID")</annotations>
+		</property>
+		<property name="profileId" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("ProfileID")</annotations>
+		</property>
+		<property name="distributionCenterID" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("DistributionCenterID")</annotations>
+		</property>
+		<property name="availableQuantity" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("AvailableQuantity")</annotations>
+		</property>
+		<property name="product" type="com.channeladvisor.data.ProductData">
+			<annotations scope="member">@JsonProperty("Product")</annotations>
+			<annotations scope="member">@JsonIgnore</annotations>
+		</property>
+	</bean>
 
-		<import type="javax.xml.bind.annotation.XmlRootElement"/>
-		<import type="javax.xml.bind.annotation.XmlElements"/>
-		<import type="javax.xml.bind.annotation.XmlElement"/>
+	<bean class="com.channeladvisor.data.ImageData">
+		<import type="com.fasterxml.jackson.annotation.JsonProperty"/>
+		<import type="com.fasterxml.jackson.annotation.JsonIgnore"/>
+		<property name="productId" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("ProductID")</annotations>
+		</property>
+		<property name="profileId" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("ProfileID")</annotations>
+		</property>
+		<property name="placementName" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("PlacementName")</annotations>
+		</property>
+		<property name="abbreviation" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("Abbreviation")</annotations>
+		</property>
+		<property name="url" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("Url")</annotations>
+		</property>
+		<property name="product" type="com.channeladvisor.data.ProductData">
+			<annotations scope="member">@JsonProperty("Product")</annotations>
+			<annotations scope="member">@JsonIgnore</annotations>
+		</property>
+	</bean>
 
-		<annotations>@XmlRootElement</annotations>
-		
-		<property name="someText" type="String">
+	<bean class="com.channeladvisor.data.ProductLabelData">
+		<import type="com.fasterxml.jackson.annotation.JsonProperty"/>
+		<import type="com.fasterxml.jackson.annotation.JsonIgnore"/>
+		<property name="productId" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("ProductID")</annotations>
+		</property>
+		<property name="profileId" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("ProfileID")</annotations>
+		</property>
+		<property name="name" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("Name")</annotations>
+		</property>
+		<property name="product" type="com.channeladvisor.data.ProductData">
+			<annotations scope="member">@JsonProperty("Product")</annotations>
+			<annotations scope="member">@JsonIgnore</annotations>
+		</property>
+	</bean>
 
-			<annotations scope="getter">
-			@XmlElements(value = {
-					@XmlElement(name="map",
-						type=ValueAsMap.class),
-					@XmlElement(name="string",
-						type=ValueAsString.class)
-			})
-			</annotations>
+	<bean class="com.channeladvisor.data.ProductBundleComponentData">
+		<import type="com.fasterxml.jackson.annotation.JsonProperty"/>
+		<import type="com.fasterxml.jackson.annotation.JsonIgnore"/>
+		<property name="productId" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("ProductID")</annotations>
+		</property>
+		<property name="componentId" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("ComponentID")</annotations>
+		</property>
+		<property name="profileId" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("ProfileID")</annotations>
+		</property>
+		<property name="componentSku" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("ComponentSku")</annotations>
+		</property>
+		<property name="quantity" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("Quantity")</annotations>
+		</property>
+		<property name="product" type="com.channeladvisor.data.ProductData">
+			<annotations scope="member">@JsonProperty("Product")</annotations>
+			<annotations scope="member">@JsonIgnore</annotations>
+		</property>
+	</bean>
 
+	<bean class="com.channeladvisor.data.ChildRelationshipData">
+		<import type="com.fasterxml.jackson.annotation.JsonProperty"/>
+		<import type="com.fasterxml.jackson.annotation.JsonIgnore"/>
+		<property name="parentProductId" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("ParentProductID")</annotations>
+		</property>
+		<property name="profileId" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("ProfileID")</annotations>
+		</property>
+		<property name="childProductId" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("ChildProductID")</annotations>
+		</property>
+		<property name="childProduct" type="com.channeladvisor.data.ProductData">
+			<annotations scope="member">@JsonProperty("ChildProduct")</annotations>
+			<annotations scope="member">@JsonIgnore</annotations>
+		</property>
+	</bean>
+
+	<bean class="com.channeladvisor.data.FulfillmentItemData">
+		<import type="com.fasterxml.jackson.annotation.JsonProperty"/>
+		<import type="com.fasterxml.jackson.annotation.JsonIgnore"/>
+		<property name="distributionCenterItemUnitCost" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("DistributionCenterItemUnitCost")</annotations>
+		</property>
+		<property name="distributionCenterShippingCost" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("DistributionCenterShippingCost")</annotations>
+		</property>
+		<property name="distributionCenterCalculatedItemUnitCost" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("DistributionCenterCalculatedItemUnitCost")</annotations>
+		</property>
+		<property name="distributionCenterCalculatedShippingCost" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("DistributionCenterCalculatedShippingCost")</annotations>
+		</property>
+		<property name="id" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("ID")</annotations>
+		</property>
+		<property name="profileID" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("ProfileID")</annotations>
+		</property>
+		<property name="fulfillmentID" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("FulfillmentID")</annotations>
+		</property>
+		<property name="orderID" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("OrderID")</annotations>
+		</property>
+		<property name="orderItemID" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("OrderItemID")</annotations>
+		</property>
+		<property name="quantity" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("Quantity")</annotations>
+		</property>
+		<property name="productID" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("ProductID")</annotations>
+		</property>
+		<property name="sellerFulfillmentItemID" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("SellerFulfillmentItemID")</annotations>
+		</property>
+		<property name="marketplaceShippingStatus" type="com.channeladvisor.data.FulfillmentItemSiteCommunicationStatus">
+			<annotations scope="member">@JsonProperty("MarketplaceShippingStatus")</annotations>
+		</property>
+		<property name="fulfillment" type="com.channeladvisor.data.FulfillmentData">
+			<annotations scope="member">@JsonProperty("Fulfillment")</annotations>
+			<annotations scope="member">@JsonIgnore</annotations>
+		</property>
+		<property name="orderItem" type="com.channeladvisor.data.OrderItemData">
+			<annotations scope="member">@JsonProperty("OrderItem")</annotations>
+			<annotations scope="member">@JsonIgnore</annotations>
+		</property>
+		<property name="bundleComponent" type="com.channeladvisor.data.OrderItemBundleComponentData">
+			<annotations scope="member">@JsonProperty("BundleComponent")</annotations>
+		</property>
+	</bean>
+
+
+	<bean class="com.channeladvisor.data.FulfillmentData">
+		<import type="com.fasterxml.jackson.annotation.JsonProperty"/>
+		<import type="com.fasterxml.jackson.annotation.JsonIgnore"/>
+		<property name="id" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("ID")</annotations>
+		</property>
+		<property name="profileID" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("ProfileID")</annotations>
+		</property>
+		<property name="orderID" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("OrderID")</annotations>
+		</property>
+		<property name="createdDateUtc" type="java.lang.String"><!--Type="Edm.DateTimeOffset"-->
+			<annotations scope="member">@JsonProperty("CreatedDateUtc")</annotations>
+		</property>
+		<property name="updatedDateUtc" type="java.lang.String"><!--Type="Edm.DateTimeOffset"-->
+			<annotations scope="member">@JsonProperty("UpdatedDateUtc")</annotations>
+		</property>
+		<property name="type" type="com.channeladvisor.data.FulfillmentType">
+			<annotations scope="member">@JsonProperty("Type")</annotations>
+		</property>
+		<property name="deliveryStatus" type="com.channeladvisor.data.DeliveryStatus">
+			<annotations scope="member">@JsonProperty("DeliveryStatus")</annotations>
+		</property>
+		<property name="trackingNumber" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("TrackingNumber")</annotations>
+		</property>
+		<property name="returnTrackingNumber" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("ReturnTrackingNumber")</annotations>
+		</property>
+		<property name="shippingCarrier" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("ShippingCarrier")</annotations>
+		</property>
+		<property name="shippingClass" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("ShippingClass")</annotations>
+		</property>
+		<property name="distributionCenterID" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("DistributionCenterID")</annotations>
+		</property>
+		<property name="externalFulfillmentCenterCode" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("ExternalFulfillmentCenterCode")</annotations>
+		</property>
+		<property name="externalFulfillmentStatus" type="com.channeladvisor.data.FulfillmentRequestStatus">
+			<annotations scope="member">@JsonProperty("ExternalFulfillmentStatus")</annotations>
+		</property>
+		<property name="shippingCost" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("ShippingCost")</annotations>
+		</property>
+		<property name="insuranceCost" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("InsuranceCost")</annotations>
+		</property>
+		<property name="taxCost" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("TaxCost")</annotations>
+		</property>
+		<property name="shippedDateUtc" type="java.lang.String"><!--Type="Edm.DateTimeOffset"-->
+			<annotations scope="member">@JsonProperty("ShippedDateUtc")</annotations>
+		</property>
+		<property name="sellerFulfillmentID" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("SellerFulfillmentID")</annotations>
+		</property>
+		<property name="hasShippingLabel" type="java.lang.Boolean">
+			<annotations scope="member">@JsonProperty("HasShippingLabel")</annotations>
+		</property>
+		<property name="hasChannelPackingSlip" type="java.lang.Boolean">
+			<annotations scope="member">@JsonProperty("HasChannelPackingSlip")</annotations>
+		</property>
+		<property name="hasReturnLabel" type="java.lang.Boolean">
+			<annotations scope="member">@JsonProperty("HasReturnLabel")</annotations>
+		</property>
+		<property name="hasChannelReturnLabel" type="java.lang.Boolean">
+			<annotations scope="member">@JsonProperty("HasChannelReturnLabel")</annotations>
+		</property>
+		<property name="externalFulfillmentNumber" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("ExternalFulfillmentNumber")</annotations>
+		</property>
+		<property name="externalFulfillmentReferenceNumber" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("ExternalFulfillmentReferenceNumber")</annotations>
+		</property>
+		<property name="shippingLabelRequestID" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("ShippingLabelRequestID")</annotations>
+		</property>
+		<property name="stagingLocation" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("StagingLocation")</annotations>
+		</property>
+		<property name="estimatedShipDateUtc" type="java.lang.String"><!--Type="Edm.DateTimeOffset"-->
+			<annotations scope="member">@JsonProperty("EstimatedShipDateUtc")</annotations>
+		</property>
+		<property name="labelFormat" type="com.channeladvisor.data.LabelFormatType">
+			<annotations scope="member">@JsonProperty("LabelFormat")</annotations>
+		</property>
+		<property name="returnLabelFormat" type="com.channeladvisor.data.LabelFormatType">
+			<annotations scope="member">@JsonProperty("ReturnLabelFormat")</annotations>
+		</property>
+		<property name="channelReturnLabelFormat" type="com.channeladvisor.data.LabelFormatType">
+			<annotations scope="member">@JsonProperty("ChannelReturnLabelFormat")</annotations>
+		</property>
+		<property name="order" type="com.channeladvisor.data.OrderData">
+			<annotations scope="member">@JsonProperty("Order")</annotations>
+			<annotations scope="member">@JsonIgnore</annotations>
+		</property>
+		<property name="fulfillmentItems" type="java.util.List&lt;com.channeladvisor.data.FulfillmentItemData>">
+			<annotations scope="member">@JsonProperty("Items")</annotations>
+		</property>
+	</bean>
+
+	<bean class="com.channeladvisor.data.ChannelDocumentData">
+		<import type="com.fasterxml.jackson.annotation.JsonProperty"/>
+		<import type="com.fasterxml.jackson.annotation.JsonIgnore"/>
+		<property name="documentKey" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("DocumentKey")</annotations>
+		</property>
+		<property name="contents" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("Contents")</annotations>
+		</property>
+		<property name="id" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("ID")</annotations>
+		</property>
+		<property name="profileID" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("ProfileID")</annotations>
+		</property>
+		<property name="documentType" type="com.channeladvisor.data.ChannelDocumentType">
+			<annotations scope="member">@JsonProperty("DocumentType")</annotations>
+		</property>
+	</bean>
+
+	<bean class="com.channeladvisor.data.CustomFieldData">
+		<import type="com.fasterxml.jackson.annotation.JsonProperty"/>
+		<import type="com.fasterxml.jackson.annotation.JsonIgnore"/>
+		<property name="fieldID" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("FieldID")</annotations>
+		</property>
+		<property name="orderID" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("OrderID")</annotations>
+		</property>
+		<property name="profileID" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("ProfileID")</annotations>
+		</property>
+		<property name="value" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("Value")</annotations>
+		</property>
+		<property name="order" type="com.channeladvisor.data.OrderData">
+			<annotations scope="member">@JsonProperty("Order")</annotations>
+			<annotations scope="member">@JsonIgnore</annotations>
+		</property>
+	</bean>
+
+	<bean class="com.channeladvisor.data.ExportStatusData">
+		<import type="com.fasterxml.jackson.annotation.JsonProperty"/>
+		<import type="com.fasterxml.jackson.annotation.JsonIgnore"/>
+		<property name="id" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("ID")</annotations>
+		</property>
+		<property name="profileID" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("ProfileID")</annotations>
+		</property>
+		<property name="orderID" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("OrderID")</annotations>
+		</property>
+		<property name="applicationID" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("ApplicationID")</annotations>
+		</property>
+		<property name="developerKey" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("DeveloperKey")</annotations>
+		</property>
+		<property name="override" type="java.lang.Boolean">
+			<annotations scope="member">@JsonProperty("Override")</annotations>
+		</property>
+		<property name="order" type="com.channeladvisor.data.OrderData">
+			<annotations scope="member">@JsonProperty("Order")</annotations>
+			<annotations scope="member">@JsonIgnore</annotations>
+		</property>
+	</bean>
+
+	<bean class="com.channeladvisor.data.OrderAdjustmentData">
+		<import type="com.fasterxml.jackson.annotation.JsonProperty"/>
+		<import type="com.fasterxml.jackson.annotation.JsonIgnore"/>
+		<property name="createdSource" type="com.channeladvisor.data.AdjustmentSource">
+			<annotations scope="member">@JsonProperty("CreatedSource")</annotations>
+		</property>
+		<property name="lastUpdatedSource" type="com.channeladvisor.data.AdjustmentSource">
+			<annotations scope="member">@JsonProperty("LastUpdatedSource")</annotations>
+		</property>
+		<property name="id" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("ID")</annotations>
+		</property>
+		<property name="profileID" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("ProfileID")</annotations>
+		</property>
+		<property name="orderID" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("OrderID")</annotations>
+		</property>
+		<property name="isRestock" type="java.lang.Boolean">
+			<annotations scope="member">@JsonProperty("IsRestock")</annotations>
+		</property>
+		<property name="reason" type="com.channeladvisor.data.AdjustmentReason">
+			<annotations scope="member">@JsonProperty("Reason")</annotations>
+		</property>
+		<property name="itemAdjustment" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("ItemAdjustment")</annotations>
+		</property>
+		<property name="taxAdjustment" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("TaxAdjustment")</annotations>
+		</property>
+		<property name="shippingAdjustment" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("ShippingAdjustment")</annotations>
+		</property>
+		<property name="shippingTaxAdjustment" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("ShippingTaxAdjustment")</annotations>
+		</property>
+		<property name="giftWrapAdjustment" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("GiftWrapAdjustment")</annotations>
+		</property>
+		<property name="giftWrapTaxAdjustment" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("GiftWrapTaxAdjustment")</annotations>
+		</property>
+		<property name="recyclingFeeAdjustment" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("RecyclingFeeAdjustment")</annotations>
+		</property>
+		<property name="type" type="com.channeladvisor.data.AdjustmentType">
+			<annotations scope="member">@JsonProperty("Type")</annotations>
+		</property>
+		<property name="sellerAdjustmentID" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("SellerAdjustmentID")</annotations>
+		</property>
+		<property name="siteAdjustmentID" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("SiteAdjustmentID")</annotations>
+		</property>
+		<property name="siteRefundDateUtc" type="java.lang.String"><!--Type="Edm.DateTimeOffset"-->
+			<annotations scope="member">@JsonProperty("SiteRefundDateUtc")</annotations>
+		</property>
+		<property name="adjustmentTransactionID" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("AdjustmentTransactionID")</annotations>
+		</property>
+		<property name="publicNotes" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("PublicNotes")</annotations>
+		</property>
+		<property name="comment" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("Comment")</annotations>
+		</property>
+		<property name="createdDateUtc" type="java.lang.String"><!--Type="Edm.DateTimeOffset"-->
+			<annotations scope="member">@JsonProperty("CreatedDateUtc")</annotations>
+		</property>
+		<property name="requestStatus" type="com.channeladvisor.data.AsyncStatus">
+			<annotations scope="member">@JsonProperty("RequestStatus")</annotations>
+		</property>
+		<property name="restockStatus" type="com.channeladvisor.data.AsyncStatus">
+			<annotations scope="member">@JsonProperty("RestockStatus")</annotations>
+		</property>
+		<property name="rmaNumber" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("RmaNumber")</annotations>
+		</property>
+		<property name="returnShippingFee" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("ReturnShippingFee")</annotations>
+		</property>
+		<property name="restockingFee" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("RestockingFee")</annotations>
+		</property>
+		<property name="returnTrackingNumberOrUrl" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("ReturnTrackingNumberOrUrl")</annotations>
+		</property>
+		<property name="returnShippingMethod" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("ReturnShippingMethod")</annotations>
+		</property>
+		<property name="order" type="com.channeladvisor.data.OrderData">
+			<annotations scope="member">@JsonProperty("Order")</annotations>
+			<annotations scope="member">@JsonIgnore</annotations>
+		</property>
+	</bean>
+
+	<bean class="com.channeladvisor.data.OrderItemData">
+		<import type="com.fasterxml.jackson.annotation.JsonProperty"/>
+		<import type="com.fasterxml.jackson.annotation.JsonIgnore"/>
+		<property name="id" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("ID")</annotations>
+		</property>
+		<property name="profileID" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("ProfileID")</annotations>
+		</property>
+		<property name="orderID" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("OrderID")</annotations>
+		</property>
+		<property name="productID" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("ProductID")</annotations>
+		</property>
+		<property name="siteOrderItemID" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("SiteOrderItemID")</annotations>
+		</property>
+		<property name="sellerOrderItemID" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("SellerOrderItemID")</annotations>
+		</property>
+		<property name="siteListingID" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("SiteListingID")</annotations>
+		</property>
+		<property name="sku" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("Sku")</annotations>
+		</property>
+		<property name="title" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("Title")</annotations>
+		</property>
+		<property name="quantity" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("Quantity")</annotations>
+		</property>
+		<property name="unitPrice" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("UnitPrice")</annotations>
+		</property>
+		<property name="taxPrice" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("TaxPrice")</annotations>
+		</property>
+		<property name="shippingPrice" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("ShippingPrice")</annotations>
+		</property>
+		<property name="shippingTaxPrice" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("ShippingTaxPrice")</annotations>
+		</property>
+		<property name="recyclingFee" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("RecyclingFee")</annotations>
+		</property>
+		<property name="unitEstimatedShippingCost" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("UnitEstimatedShippingCost")</annotations>
+		</property>
+		<property name="giftMessage" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("GiftMessage")</annotations>
+		</property>
+		<property name="giftNotes" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("GiftNotes")</annotations>
+		</property>
+		<property name="giftPrice" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("GiftPrice")</annotations>
+		</property>
+		<property name="giftTaxPrice" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("GiftTaxPrice")</annotations>
+		</property>
+		<property name="isBundle" type="java.lang.Boolean">
+			<annotations scope="member">@JsonProperty("IsBundle")</annotations>
+		</property>
+		<property name="itemURL" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("ItemURL")</annotations>
+		</property>
+		<property name="harmonizedCode" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("HarmonizedCode")</annotations>
+		</property>
+		<property name="order" type="com.channeladvisor.data.OrderData">
+			<annotations scope="member">@JsonProperty("Order")</annotations>
+			<annotations scope="member">@JsonIgnore</annotations>
+		</property>
+		<property name="bundleComponents" type="java.util.List&lt;com.channeladvisor.data.ProductBundleComponentData>">
+			<annotations scope="member">@JsonProperty("BundleComponents")</annotations>
+		</property>
+		<property name="fulfillmentItems" type="java.util.List&lt;com.channeladvisor.data.FulfillmentItemData>">
+			<annotations scope="member">@JsonProperty("FulfillmentItems")</annotations>
+		</property>
+		<property name="promotion" type="java.util.List&lt;com.channeladvisor.data.PromotionData>">
+			<annotations scope="member">@JsonProperty("Promotion")</annotations>
+		</property>
+		<property name="adjustments" type="java.util.List&lt;com.channeladvisor.data.OrderItemAdjustmentData>">
+			<annotations scope="member">@JsonProperty("Adjustments")</annotations>
 		</property>
 
 	</bean>
 
-    <bean  class="de.hybris.platform.catalog.data.Equals1">
-    	<property name="a1" type="boolean" equals="true"/>
-    	<property name="a2" type="int" equals="true"/>
-    	<property name="a3" type="String" equals="true"/>
-    	<property name="a4" type="de.hybris.platform.catalog.data.AbstractValue" equals="true"/>
-    	<property name="not4Equals" type="java.lang.Double"/>
-    </bean>
+	<bean class="com.channeladvisor.data.OrderItemBundleComponentData">
+		<import type="com.fasterxml.jackson.annotation.JsonProperty"/>
+		<import type="com.fasterxml.jackson.annotation.JsonIgnore"/>
+		<property name="orderID" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("OrderID")</annotations>
+		</property>
+		<property name="orderItemID" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("OrderItemID")</annotations>
+		</property>
+		<property name="productID" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("ProductID")</annotations>
+		</property>
+		<property name="profileID" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("ProfileID")</annotations>
+		</property>
+		<property name="bundleProductID" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("BundleProductID")</annotations>
+		</property>
+		<property name="sku" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("Sku")</annotations>
+		</property>
+		<property name="bundleSku" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("BundleSku")</annotations>
+		</property>
+		<property name="title" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("Title")</annotations>
+		</property>
+		<property name="quantity" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("Quantity")</annotations>
+		</property>
+		<property name="orderItem" type="com.channeladvisor.data.OrderItemData">
+			<annotations scope="member">@JsonProperty("OrderItem")</annotations>
+			<annotations scope="member">@JsonIgnore</annotations>
+		</property>
+		<property name="fulfillmentItems" type="java.util.List&lt;com.channeladvisor.data.FulfillmentItemData>">
+			<annotations scope="member">@JsonProperty("FulfillmentItems")</annotations>
+		</property>
+	</bean>
 
-    <bean class="de.hybris.platform.catalog.data.Equals2" extends="de.hybris.platform.catalog.data.Equals1" superEquals="true">
-    	<property name="a5" type="java.lang.Integer" equals="true"/>
-    	<property name="a6" type="java.util.List" equals="true"/>
-    	<property name="not4Equals" type="java.lang.Double"/>
-    </bean>
+	<bean class="com.channeladvisor.data.PromotionData">
+		<import type="com.fasterxml.jackson.annotation.JsonProperty"/>
+		<import type="com.fasterxml.jackson.annotation.JsonIgnore"/>
+		<property name="id" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("ID")</annotations>
+		</property>
+		<property name="code" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("Code")</annotations>
+		</property>
+		<property name="amount" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("Amount")</annotations>
+		</property>
+		<property name="shippingAmount" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("ShippingAmount")</annotations>
+		</property>
+		<property name="orderItem" type="com.channeladvisor.data.OrderItemData">
+			<annotations scope="member">@JsonProperty("OrderItem")</annotations>
+		</property>
+	</bean>
 
-	-->
+	<bean class="com.channeladvisor.data.OrderItemAdjustmentData">
+		<import type="com.fasterxml.jackson.annotation.JsonProperty"/>
+		<import type="com.fasterxml.jackson.annotation.JsonIgnore"/>
+		<property name="createdSource" type="com.channeladvisor.data.AdjustmentSource">
+			<annotations scope="member">@JsonProperty("CreatedSource")</annotations>
+		</property>
+		<property name="lastUpdatedSource" type="com.channeladvisor.data.AdjustmentSource">
+			<annotations scope="member">@JsonProperty("LastUpdatedSource")</annotations>
+		</property>
+		<property name="id" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("ID")</annotations>
+		</property>
+		<property name="profileID" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("ProfileID")</annotations>
+		</property>
+		<property name="orderID" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("OrderID")</annotations>
+		</property>
+		<property name="orderItemID" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("OrderItemID")</annotations>
+		</property>
+		<property name="quantity" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("Quantity")</annotations>
+		</property>
+		<property name="isRestock" type="java.lang.Boolean">
+			<annotations scope="member">@JsonProperty("IsRestock")</annotations>
+		</property>
+		<property name="reason" type="com.channeladvisor.data.AdjustmentReason">
+			<annotations scope="member">@JsonProperty("Reason")</annotations>
+		</property>
+		<property name="itemAdjustment" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("ItemAdjustment")</annotations>
+		</property>
+		<property name="taxAdjustment" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("TaxAdjustment")</annotations>
+		</property>
+		<property name="shippingAdjustment" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("ShippingAdjustment")</annotations>
+		</property>
+		<property name="shippingTaxAdjustment" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("ShippingTaxAdjustment")</annotations>
+		</property>
+		<property name="giftWrapAdjustment" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("GiftWrapAdjustment")</annotations>
+		</property>
+		<property name="giftWrapTaxAdjustment" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("GiftWrapTaxAdjustment")</annotations>
+		</property>
+		<property name="recyclingFeeAdjustment" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("RecyclingFeeAdjustment")</annotations>
+		</property>
+		<property name="type" type="com.channeladvisor.data.AdjustmentType">
+			<annotations scope="member">@JsonProperty("Type")</annotations>
+		</property>
+		<property name="sellerAdjustmentID" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("SellerAdjustmentID")</annotations>
+		</property>
+		<property name="siteAdjustmentID" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("SiteAdjustmentID")</annotations>
+		</property>
+		<property name="siteRefundDateUtc" type="java.lang.String"><!--Type="Edm.DateTimeOffset"-->
+			<annotations scope="member">@JsonProperty("SiteRefundDateUtc")</annotations>
+		</property>
+		<property name="adjustmentTransactionID" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("AdjustmentTransactionID")</annotations>
+		</property>
+		<property name="publicNotes" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("PublicNotes")</annotations>
+		</property>
+		<property name="comment" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("Comment")</annotations>
+		</property>
+		<property name="createdDateUtc" type="java.lang.String"><!--Type="Edm.DateTimeOffset"-->
+			<annotations scope="member">@JsonProperty("CreatedDateUtc")</annotations>
+		</property>
+		<property name="requestStatus" type="com.channeladvisor.data.AsyncStatus">
+			<annotations scope="member">@JsonProperty("RequestStatus")</annotations>
+		</property>
+		<property name="restockStatus" type="com.channeladvisor.data.AsyncStatus">
+			<annotations scope="member">@JsonProperty("RestockStatus")</annotations>
+		</property>
+		<property name="rmaNumber" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("RmaNumber")</annotations>
+		</property>
+		<property name="returnShippingFee" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("ReturnShippingFee")</annotations>
+		</property>
+		<property name="restockingFee" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("RestockingFee")</annotations>
+		</property>
+		<property name="returnTrackingNumberOrUrl" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("ReturnTrackingNumberOrUrl")</annotations>
+		</property>
+		<property name="returnShippingMethod" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("ReturnShippingMethod")</annotations>
+		</property>
+		<property name="orderItem" type="com.channeladvisor.data.OrderItemData">
+			<annotations scope="member">@JsonProperty("OrderItem")</annotations>
+			<annotations scope="member">@JsonIgnore</annotations>
+		</property>
+	</bean>
+
+	<bean class="com.channeladvisor.data.OrderData">
+		<import type="com.fasterxml.jackson.annotation.JsonProperty"/>
+		<import type="com.fasterxml.jackson.annotation.JsonIgnore"/>
+		<property name="id" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("ID")</annotations>
+		</property>
+		<property name="profileId" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("ProfileID")</annotations>
+		</property>
+		<property name="siteID" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("SiteID")</annotations>
+		</property>
+		<property name="siteName" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("SiteName")</annotations>
+		</property>
+		<property name="userDataPresent" type="java.lang.Short">
+			<annotations scope="member">@JsonProperty("UserDataPresent")</annotations>
+		</property>
+		<property name="userDataRemovalDateUTC" type="java.lang.String"><!--Type="Edm.DateTimeOffset"-->
+			<annotations scope="member">@JsonProperty("UserDataRemovalDateUTC")</annotations>
+		</property>
+		<property name="siteAccountID" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("SiteAccountID")</annotations>
+		</property>
+		<property name="siteOrderID" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("SiteOrderID")</annotations>
+		</property>
+		<property name="secondarySiteOrderID" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("SecondarySiteOrderID")</annotations>
+		</property>
+		<property name="sellerOrderID" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("SellerOrderID")</annotations>
+		</property>
+		<property name="checkoutSourceID" type="java.lang.Short">
+			<annotations scope="member">@JsonProperty("CheckoutSourceID")</annotations>
+		</property>
+		<property name="currency" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("Currency")</annotations>
+		</property>
+		<property name="createdDateUtc" type="java.lang.String"><!--Type="Edm.DateTimeOffset"-->
+			<annotations scope="member">@JsonProperty("CreatedDateUtc")</annotations>
+		</property>
+		<property name="importDateUtc" type="java.lang.String"><!--Type="Edm.DateTimeOffset"-->
+			<annotations scope="member">@JsonProperty("ImportDateUtc")</annotations>
+		</property>
+		<property name="updatedDateUtc" type="java.lang.String"><!--Type="Edm.DateTimeOffset"-->
+			<annotations scope="member">@JsonProperty("UpdatedDateUtc")</annotations>
+		</property>
+		<property name="publicNotes" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("PublicNotes")</annotations>
+		</property>
+		<property name="privateNotes" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("PrivateNotes")</annotations>
+		</property>
+		<property name="specialInstructions" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("SpecialInstructions")</annotations>
+		</property>
+		<property name="totalPrice" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("TotalPrice")</annotations>
+		</property>
+		<property name="totalShippingPrice" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("TotalShippingPrice")</annotations>
+		</property>
+		<property name="totalTaxPrice" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("TotalTaxPrice")</annotations>
+		</property>
+		<property name="totalShippingTaxPrice" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("TotalShippingTaxPrice")</annotations>
+		</property>
+		<property name="totalInsurancePrice" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("TotalInsurancePrice")</annotations>
+		</property>
+		<property name="totalGiftOptionPrice" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("TotalGiftOptionPrice")</annotations>
+		</property>
+		<property name="totalGiftOptionTaxPrice" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("TotalGiftOptionTaxPrice")</annotations>
+		</property>
+		<property name="additionalCostOrDiscount" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("AdditionalCostOrDiscount")</annotations>
+		</property>
+		<property name="estimatedShipDateUtc" type="java.lang.String"><!--Type="Edm.DateTimeOffset"-->
+			<annotations scope="member">@JsonProperty("EstimatedShipDateUtc")</annotations>
+		</property>
+		<property name="deliverByDateUtc" type="java.lang.String"><!--Type="Edm.DateTimeOffset"-->
+			<annotations scope="member">@JsonProperty("DeliverByDateUtc")</annotations>
+		</property>
+		<property name="requestedShippingCarrier" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("RequestedShippingCarrier")</annotations>
+		</property>
+		<property name="requestedShippingClass" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("RequestedShippingClass")</annotations>
+		</property>
+		<property name="resellerID" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("ResellerID")</annotations>
+		</property>
+		<property name="flagID" type="java.lang.Integer">
+			<annotations scope="member">@JsonProperty("FlagID")</annotations>
+		</property>
+		<property name="flagDescription" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("FlagDescription")</annotations>
+		</property>
+		<property name="orderTags" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("OrderTags")</annotations>
+		</property>
+		<property name="distributionCenterTypeRollup" type="com.channeladvisor.data.DistributionCenterRollupType">
+			<annotations scope="member">@JsonProperty("DistributionCenterTypeRollup")</annotations>
+		</property>
+		<property name="checkoutStatus" type="com.channeladvisor.data.CheckoutStatus">
+			<annotations scope="member">@JsonProperty("CheckoutStatus")</annotations>
+		</property>
+		<property name="paymentStatus" type="com.channeladvisor.data.PaymentStatus">
+			<annotations scope="member">@JsonProperty("PaymentStatus")</annotations>
+		</property>
+		<property name="shippingStatus" type="com.channeladvisor.data.ShippingStatus">
+			<annotations scope="member">@JsonProperty("ShippingStatus")</annotations>
+		</property>
+		<property name="checkoutDateUtc" type="java.lang.String"><!--Type="Edm.DateTimeOffset"-->
+			<annotations scope="member">@JsonProperty("CheckoutDateUtc")</annotations>
+		</property>
+		<property name="paymentDateUtc" type="java.lang.String"><!--Type="Edm.DateTimeOffset"-->
+			<annotations scope="member">@JsonProperty("PaymentDateUtc")</annotations>
+		</property>
+		<property name="shippingDateUtc" type="java.lang.String"><!--Type="Edm.DateTimeOffset"-->
+			<annotations scope="member">@JsonProperty("ShippingDateUtc")</annotations>
+		</property>
+		<property name="buyerUserId" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("BuyerUserId")</annotations>
+		</property>
+		<property name="buyerEmailAddress" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("BuyerEmailAddress")</annotations>
+		</property>
+		<property name="buyerEmailOptIn" type="java.lang.Boolean">
+			<annotations scope="member">@JsonProperty("BuyerEmailOptIn")</annotations>
+		</property>
+		<property name="orderTaxType" type="com.channeladvisor.data.TaxType">
+			<annotations scope="member">@JsonProperty("OrderTaxType")</annotations>
+		</property>
+		<property name="shippingTaxType" type="com.channeladvisor.data.TaxType">
+			<annotations scope="member">@JsonProperty("ShippingTaxType")</annotations>
+		</property>
+		<property name="giftOptionsTaxType" type="com.channeladvisor.data.TaxType">
+			<annotations scope="member">@JsonProperty("GiftOptionsTaxType")</annotations>
+		</property>
+		<property name="paymentMethod" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("PaymentMethod")</annotations>
+		</property>
+		<property name="paymentTransactionID" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("PaymentTransactionID")</annotations>
+		</property>
+		<property name="paymentPaypalAccountID" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("PaymentPaypalAccountID")</annotations>
+		</property>
+		<property name="paymentCreditCardLast4" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("PaymentCreditCardLast4")</annotations>
+		</property>
+		<property name="paymentMerchantReferenceNumber" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("PaymentMerchantReferenceNumber")</annotations>
+		</property>
+		<property name="shippingTitle" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("ShippingTitle")</annotations>
+		</property>
+		<property name="shippingFirstName" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("ShippingFirstName")</annotations>
+		</property>
+		<property name="shippingLastName" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("ShippingLastName")</annotations>
+		</property>
+		<property name="shippingSuffix" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("ShippingSuffix")</annotations>
+		</property>
+		<property name="shippingCompanyName" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("ShippingCompanyName")</annotations>
+		</property>
+		<property name="shippingCompanyJobTitle" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("ShippingCompanyJobTitle")</annotations>
+		</property>
+		<property name="shippingDaytimePhone" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("ShippingDaytimePhone")</annotations>
+		</property>
+		<property name="shippingEveningPhone" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("ShippingEveningPhone")</annotations>
+		</property>
+		<property name="shippingAddressLine1" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("ShippingAddressLine1")</annotations>
+		</property>
+		<property name="shippingAddressLine2" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("ShippingAddressLine2")</annotations>
+		</property>
+		<property name="shippingCity" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("ShippingCity")</annotations>
+		</property>
+		<property name="shippingStateOrProvince" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("ShippingStateOrProvince")</annotations>
+		</property>
+		<property name="shippingStateOrProvinceName" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("ShippingStateOrProvinceName")</annotations>
+		</property>
+		<property name="shippingPostalCode" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("ShippingPostalCode")</annotations>
+		</property>
+		<property name="shippingCountry" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("ShippingCountry")</annotations>
+		</property>
+		<property name="billingTitle" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("BillingTitle")</annotations>
+		</property>
+		<property name="billingFirstName" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("BillingFirstName")</annotations>
+		</property>
+		<property name="billingLastName" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("BillingLastName")</annotations>
+		</property>
+		<property name="billingSuffix" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("BillingSuffix")</annotations>
+		</property>
+		<property name="billingCompanyName" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("BillingCompanyName")</annotations>
+		</property>
+		<property name="billingCompanyJobTitle" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("BillingCompanyJobTitle")</annotations>
+		</property>
+		<property name="billingDaytimePhone" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("BillingDaytimePhone")</annotations>
+		</property>
+		<property name="billingEveningPhone" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("BillingEveningPhone")</annotations>
+		</property>
+		<property name="billingAddressLine1" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("BillingAddressLine1")</annotations>
+		</property>
+		<property name="billingAddressLine2" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("BillingAddressLine2")</annotations>
+		</property>
+		<property name="billingCity" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("BillingCity")</annotations>
+		</property>
+		<property name="billingStateOrProvince" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("BillingStateOrProvince")</annotations>
+		</property>
+		<property name="billingStateOrProvinceName" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("BillingStateOrProvinceName")</annotations>
+		</property>
+		<property name="billingPostalCode" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("BillingPostalCode")</annotations>
+		</property>
+		<property name="billingCountry" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("BillingCountry")</annotations>
+		</property>
+		<property name="promotionCode" type="java.lang.String">
+			<annotations scope="member">@JsonProperty("PromotionCode")</annotations>
+		</property>
+		<property name="promotionAmount" type="java.lang.Double">
+			<annotations scope="member">@JsonProperty("PromotionAmount")</annotations>
+		</property>
+		<property name="items" type="java.util.List&lt;com.channeladvisor.data.OrderItemData>">
+			<annotations scope="member">@JsonProperty("Items")</annotations>
+		</property>
+		<property name="fulfillments" type="java.util.List&lt;com.channeladvisor.data.FulfillmentData>">
+			<annotations scope="member">@JsonProperty("Fulfillments")</annotations>
+		</property>
+		<property name="adjustments" type="java.util.List&lt;com.channeladvisor.data.OrderAdjustmentData>">
+			<annotations scope="member">@JsonProperty("Adjustments")</annotations>
+		</property>
+		<property name="customFields" type="java.util.List&lt;com.channeladvisor.data.CustomFieldData>">
+			<annotations scope="member">@JsonProperty("CustomFields")</annotations>
+		</property>
+		<property name="exports" type="java.util.List&lt;com.channeladvisor.data.ExportStatusData>">
+			<annotations scope="member">@JsonProperty("Exports")</annotations>
+		</property>
+		<property name="channelDocument" type="java.util.List&lt;com.channeladvisor.data.ChannelDocumentData>">
+			<annotations scope="member">@JsonProperty("ChannelDocument")</annotations>
+		</property>
+	</bean>
 
 </beans>

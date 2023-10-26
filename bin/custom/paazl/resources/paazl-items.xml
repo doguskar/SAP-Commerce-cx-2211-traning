@@ -16,15 +16,6 @@
 	</enumtypes>-->
 
 	<itemtypes>
-		<!--from other exts-->
-		<itemtype code="BaseStore" autocreate="false" generate="false">
-			<attributes>
-				<attribute qualifier="configuration" type="BaseStoreConfiguration">
-					<persistence type="property"/>
-				</attribute>
-			</attributes>
-		</itemtype>
-		<!--from other ext END-->
 
 		<itemtype code="PaazlConfiguration" extends="GenericItem">
 			<deployment table="paazlConfiguration" typecode="14000"/>
@@ -175,17 +166,8 @@
 			</attributes>
 		</itemtype>
 
-		<itemtype code="BaseStoreConfiguration" extends="GenericItem" autocreate="true" generate="true"><!--extends="GenericItem" autocreate="false" generate="false"-->
-			<!---->
-			<deployment table="ltbBaseStoreConfig" typecode="30193"/>
-			<!---->
+		<itemtype code="BaseStoreConfiguration" autocreate="false" generate="false">
 			<attributes>
-				<!---->
-				<attribute qualifier="uid" type="java.lang.String">
-					<persistence type="property"/>
-					<modifiers unique="true"/>
-				</attribute>
-				<!---->
 				<attribute qualifier="paazlConfiguration" type="PaazlConfiguration">
 					<persistence type="property"/>
 				</attribute>
