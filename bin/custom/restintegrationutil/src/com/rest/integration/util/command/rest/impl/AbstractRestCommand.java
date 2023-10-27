@@ -288,7 +288,6 @@ public abstract class AbstractRestCommand<REQUEST extends IRequest, RESPONSE> im
     public boolean isCreateRequestLogActive(REQUEST request, boolean isFailed) {
         // if you want to create request log always, override this method and return true.
         boolean isCreateRequestLogEnabled = configurationService.getConfiguration().getBoolean(createRequestLogEnabledKey(request), false);
-        LOG.error("isCreateRequestLogEnabled: " + isCreateRequestLogEnabled + "");
         return isCreateRequestLogEnabled || (isFailed && isCreateRequestLogWhenFailedActive());
     }
 
